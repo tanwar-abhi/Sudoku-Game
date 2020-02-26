@@ -6,6 +6,9 @@ all:Sudoku
 
 Grid: Makefile Grid.h Grid.cpp
 	$(CXX) $(CXXFLAGS) -c Grid.cpp
+	
+main: Makefile main.cpp
+	$(CXX) $(CXXFLAGS) -c main.cpp
 
-Sudoku: Makefile main_file.o Grid.o
-	$(CXX) $(CXXFLAGS) main_file.o Grid.o -o RunSudokuGame
+Sudoku: Makefile main.o Grid.o
+	$(CXX) $(CXXFLAGS) main.o Grid.o -o RunSudoku

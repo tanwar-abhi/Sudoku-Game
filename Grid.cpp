@@ -33,3 +33,20 @@ void Grid::makeGrid(std::vector<std::vector <int>> &Ans){
         }
     }
 }
+
+
+void Grid::Print2dVec(std::vector<std::vector<int>> &Matrix){
+    int m = Matrix.size();
+    int n = Matrix[0].size();
+    std::cout<<"The matrix is as follows :: "<<std::endl;
+    for (int i=0; i<m;i++){
+        for (int j=0; j<n;j++){
+            if (j==n-1){
+                std::cout<<Matrix[i][j]<<std::endl;
+            }
+            else{
+                std::cout<<Matrix[i][j]<<" ";
+            }
+        }
+    }
+}

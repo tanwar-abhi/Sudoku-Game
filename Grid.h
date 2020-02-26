@@ -15,4 +15,6 @@ class Grid{
     void makeGrid(std::vector<std::vector<int> > &matrix);
     void updateGrid();
 
+    void Print2dVec(std::vector<std::vector<int>> &aMat);
+
 };

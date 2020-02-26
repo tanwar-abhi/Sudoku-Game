@@ -4,9 +4,12 @@
 #include <iostream>
 #include <vector>
 #include "Grid.h"
-#include <string>
+#include <ctime>
 
 int main(){
+    
+    srand(time(NULL));
+
     std::cout<<"Welcome to the game of Sudoku, My Friend"<<std::endl;
     int m = 9 , n = 9;
     //2D vector that contains the Grid elements.
@@ -18,29 +21,20 @@ int main(){
         }
     }
 
+    for (int i=0; i<70;i++){
+        int pos1,pos2;
+        pos1 = rand()%10;
+        pos2 = rand()%10;
 
-    /*
-    std::cout<<"Vector is as follows :: "<<std::endl;
-    for (int i=0; i<m; i++){
-        for (int j=0; j<n; j++){
-            if ( j==n-1){
-                std::cout<<Answers[i][j]<<" | "<<std::endl;
-                std::cout<<"--|---|---|---|---|---|---|---|---|"<<std::endl;
-                
-            }
-            else{
-                std::cout<<Answers[i][j]<<" | ";
-            }
-
-        }
+        Answers[pos1][pos2] = rand()%10;
     }
-    */
+    
+    Grid Su1;
 
-   Grid Su1;
-   Su1.makeGrid(Answers);
+    Su1.Print2dVec(Answers);
+
+    Su1.makeGrid(Answers);
+
    
-
-
-
     return 0;
 }
