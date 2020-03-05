@@ -3,25 +3,29 @@
 #include <iostream>
 #include <vector>
 #include "Grid.h"
-#include <ctime>
-#include "GameFunction.cpp"
+#include "Puzzle.h"
 
 int main(){
     
     srand(time(NULL));
 
-    std::cout<<"Welcome to the game of Sudoku, My Friend"<<std::endl;
-    int m = 9 , n = 9;
+    std::cout<<"\nWelcome to the game of Sudoku, My Friend\n#########################\n"<<std::endl;
+ 
     //2D vector that contains the Grid elements.
-    std::vector<std::vector <int>> Puzzle(m, std::vector<int> (n));
 
+    Puzzle *SuPuzzle = new Puzzle();
+
+    SuPuzzle->Print2dVec(SuPuzzle->Matrix);
+
+    /*
     Print2dVec(Puzzle);
     RandomMatrix(Puzzle);
     Print2dVec(Puzzle);
-    
+    */
+
+
 
     Grid Su1;
-    aFuncCall();
     //Su1.makeGrid(Answers);
     //Su1.InitialGrid(Answers);
 
