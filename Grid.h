@@ -1,4 +1,5 @@
-//Ok this is a grid header file.
+//This is a grid header file.
+// This file contains all the definations of member variables and functions.
 
 #pragma once
 
@@ -17,6 +18,6 @@ class Grid{
 
     void InitialGrid(std::vector<std::vector<int>> aMatrix);
 
-    void Print2dVec(std::vector<std::vector<int>> &aMat);
+    //void Print2dVec(std::vector<std::vector<int>> &aMat);
 
 };

@@ -1,7 +1,7 @@
 # Add description for the repository here.
 
 **A Work in progress**
-This repositoy is a work in progress for a simple text based game of sudoku.
+This repositoy is a work in progress for a text based game of sudoku.
 It is the result of my personal interest in c++ and sudoku both.
 
 Used OOPS principles in the implementation of the game.
@@ -13,3 +13,4 @@ Used OOPS principles in the implementation of the game.
 `main.cpp` -> The main file that contains all the objects and function calls that run's the game.
 
 *Still under development*
+

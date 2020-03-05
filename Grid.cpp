@@ -1,7 +1,8 @@
 // This is a file for implementation of grid
+// It contains all the code and rountines used to build the aesthetical view of puzzle.
 
 #include <iostream>
-#include <vector>
+//#include <vector>
 #include "Grid.h"
 
 Grid::Grid(){
@@ -35,22 +36,6 @@ void Grid::makeGrid(std::vector<std::vector <int>> &Ans){
 }
 
 
-void Grid::Print2dVec(std::vector<std::vector<int>> &Matrix){
-    int m = Matrix.size();
-    int n = Matrix[1].size();
-    std::cout<<"The matrix is as follows :: "<<std::endl;
-    for (int i=0; i<m;i++){
-        for (int j=0; j<n;j++){
-            if (j==n-1){
-                std::cout<<Matrix[i][j]<<std::endl;
-            }
-            else{
-                std::cout<<Matrix[i][j]<<" ";
-            }
-        }
-    }
-}
-
 
 void Grid::InitialGrid(std::vector<std::vector <int>> Ans){
     std::cout<<"Initial grid for Sudoku is as follows :: "<<std::endl;
@@ -68,7 +53,6 @@ void Grid::InitialGrid(std::vector<std::vector <int>> Ans){
             else if ( j==2 || j==5){
                 std::cout<<""<<Ans[i][j]<<" | ";
             }
-            
             else{
                 std::cout<<Ans[i][j]<<" : ";
             }
@@ -85,3 +69,4 @@ void Grid::InitialGrid(std::vector<std::vector <int>> Ans){
         }
     }
 }
+

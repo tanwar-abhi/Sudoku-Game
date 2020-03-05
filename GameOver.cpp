@@ -1,1 +1,1 @@
-// This is the implemetation file for GameOver class
+// Implementation file for Game Over check
