@@ -6,22 +6,19 @@
 #include "Puzzle.h"
 
 int main(){
-    
-    srand(time(NULL));
 
-    std::cout<<"\nWelcome to the game of Sudoku, My Friend\n#########################\n"<<std::endl;
+    Puzzle SuPuzzle;
+    SuPuzzle.Welcome();
+    SuPuzzle.Instructions();
  
+    int m=9, n=9;
     //2D vector that contains the Grid elements.
-
-    Puzzle *SuPuzzle = new Puzzle();
-
-    SuPuzzle->Print2dVec(SuPuzzle->Matrix);
-
-    /*
-    Print2dVec(Puzzle);
-    RandomMatrix(Puzzle);
-    Print2dVec(Puzzle);
-    */
+    std::vector<std::vector<int>> PuzzleMatrix(m, std::vector<int> (n));
+    
+    
+    SuPuzzle.Print2dVec(PuzzleMatrix);
+    SuPuzzle.RandomMatrix(PuzzleMatrix);
+    SuPuzzle.Print2dVec(PuzzleMatrix);
 
 
 
