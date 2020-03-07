@@ -11,9 +11,9 @@ class Puzzle{
     ~Puzzle();
 
     void Welcome();
-    void Instructions();
     void PlayDemo();
     void Print2dVec(std::vector<std::vector<int>> Vec);
     void RandomMatrix(std::vector<std::vector<int>> &Mat);
+    void PuzzleSetup(std::vector<std::vector<int>> &Vec2D);
 
 };

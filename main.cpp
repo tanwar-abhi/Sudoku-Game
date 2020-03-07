@@ -9,7 +9,6 @@ int main(){
 
     Puzzle SuPuzzle;
     SuPuzzle.Welcome();
-    SuPuzzle.Instructions();
  
     int m=9, n=9;
     //2D vector that contains the Grid elements.

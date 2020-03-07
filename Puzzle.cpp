@@ -6,7 +6,7 @@
 
 //Default emplty constructor
 Puzzle::Puzzle(){
-    // Initializing size of the vector for grid.
+    // Defalut constructor
 }
 
 Puzzle::~Puzzle(){
@@ -15,10 +15,7 @@ Puzzle::~Puzzle(){
 
 void Puzzle::Welcome(){
     std::cout<<"\n#####################################################\n#\n# *** Welcome to the game of Sudoku, My Friend ****\n#\n#####################################################\n\n";
-}
-
-void Puzzle::Instructions(){
-    std::cout<<"Press 1 for Instructions on playing\nPress 2 to start playing\n";
+    std::cout<<"Press 1 for Instructions on playing\nPress 2 to directly start playing\n";
     int x;
     std::cin>>x;
     switch (x){
@@ -30,6 +27,7 @@ void Puzzle::Instructions(){
         break;
     }
 }
+
 
 void Puzzle::PlayDemo(){
     std::cout<<"\nThe Grid is a 2D matrix of (m*n), i.e. 'm' rows and 'n' columns\n"<<std::endl;
@@ -47,6 +45,7 @@ void Puzzle::PlayDemo(){
     std::cout<<"\nSo to play enter the postion of each element first (m,n) then, value to be added in puzzle.";
     std::cout<<"For Example :: to enter value 5 at 3rd row, 4th column write '3 4 5'{should be space seperated}\n"<<std::endl;
 }
+
 
 void Puzzle::Print2dVec(std::vector<std::vector<int>> Matrix){
     int m = Matrix.size();
@@ -77,4 +76,16 @@ void Puzzle::RandomMatrix(std::vector<std::vector<int>> &Mat){
         int value = rand()%10;
         Mat[pos1][pos2] = value;
     }
+}
+
+void Puzzle::PuzzleSetup(std::vector<std::vector<int>> &Matrix){
+    int m = Matrix.size();
+    int n = Matrix[1].size();
+    for (int i=0; i<m; i++){
+        std::vector<int> aVec = Matrix[m];
+
+    }
+    
+
+
 }
