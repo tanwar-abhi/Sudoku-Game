@@ -3,6 +3,7 @@
 #include <iostream>
 #include "Puzzle.h"
 #include <ctime>
+#include <algorithm>
 
 //Default emplty constructor
 Puzzle::Puzzle(){
@@ -31,7 +32,7 @@ void Puzzle::Welcome(){
 
 void Puzzle::PlayDemo(){
     std::cout<<"\nThe Grid is a 2D matrix of (m*n), i.e. 'm' rows and 'n' columns\n"<<std::endl;
-    std::cout<<"General View of all elements of grid are as follows:\n"<<std::endl;
+    std::cout<<"General View of all elements of grid are as follows :\n"<<std::endl;
     for (int i=1;i<10;i++){
         for (int j=1; j<10; j++){
             if (j==9){
@@ -69,6 +70,8 @@ void Puzzle::RandomMatrix(std::vector<std::vector<int>> &Mat){
     srand(time(NULL));
     int m = Mat.size();
     int n = Mat[1].size();
+
+    /* Putting random values [0,9] at random positions of the matrix.
     int pos1,pos2;
     for (int i=0; i<70;i++){
         pos1 = (rand()%m);
@@ -76,16 +79,62 @@ void Puzzle::RandomMatrix(std::vector<std::vector<int>> &Mat){
         int value = rand()%10;
         Mat[pos1][pos2] = value;
     }
+    */
+
+   for (int i=0;i<m;i++){
+       for (int j=0; j<n; j++){
+           Mat[i][j] = rand()%10;
+       }
+   }
 }
 
-void Puzzle::PuzzleSetup(std::vector<std::vector<int>> &Matrix){
+
+void getRowBox(std::vector<std::vector<int>> Matrix, std::vector<int> BoxVector){
+    int m = Matrix.size();
+    std::vector<int> row = {0,3,6};
+    for (auto rn=row.begin();rn!=row.end(); rn++){
+        for (int i=0; i<m;){
+            for (int k=*rn; k<*rn+3; k++){
+                for (int j=i; j<i+3; j++){
+                    BoxVector.push_back(Matrix[k][j]);
+                    }
+                }
+            i += 3;
+            //PrintVector(BoxVector);
+            BoxVector.clear();
+        }
+
+    }  
+}
+
+
+
+bool Condition(std::vector<int> vec1D,int value){
+    int count = 0;
+    for (auto i=vec1D.begin(); i!=vec1D.end(); i++){
+        if (*i == value){
+            count += 1;
+        }
+    }
+    switch (count){
+    case 1:
+        return true;
+    
+    default:
+        return false;
+    }
+}
+
+
+void Puzzle::MakePuzzle(std::vector<std::vector<int>> &Matrix){
     int m = Matrix.size();
     int n = Matrix[1].size();
     for (int i=0; i<m; i++){
-        std::vector<int> aVec = Matrix[m];
-
+        for (int j=0; j<n; j++){
+            std::vector<int> testRow;
+            testRow = Matrix[i];
+            Matrix[i][j] = rand()%10;
+            bool Row = Condition(testRow,Matrix[i][j]);
+        }
     }
-    
-
-
 }

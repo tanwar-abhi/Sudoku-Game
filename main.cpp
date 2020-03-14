@@ -18,13 +18,14 @@ int main(){
     SuPuzzle.Print2dVec(PuzzleMatrix);
     SuPuzzle.RandomMatrix(PuzzleMatrix);
     SuPuzzle.Print2dVec(PuzzleMatrix);
+    
+    //SuPuzzle.PuzzleSetup(PuzzleMatrix);
 
 
 
     Grid Su1;
     //Su1.makeGrid(Answers);
     //Su1.InitialGrid(Answers);
-
    
     return 0;
 }

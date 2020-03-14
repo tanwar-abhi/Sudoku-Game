@@ -5,9 +5,8 @@
 
 #include <iostream>
 #include <vector>
-#include "Puzzle.h"
 
-class Grid : public Puzzle{
+class Grid{
     public:
     //Defalut constructor and destructor
     Grid();
