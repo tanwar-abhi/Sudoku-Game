@@ -89,24 +89,45 @@ void Puzzle::RandomMatrix(std::vector<std::vector<int>> &Mat){
 }
 
 
-void getRowBox(std::vector<std::vector<int>> Matrix, std::vector<int> BoxVector){
-    int m = Matrix.size();
-    std::vector<int> row = {0,3,6};
-    for (auto rn=row.begin();rn!=row.end(); rn++){
-        for (int i=0; i<m;){
-            for (int k=*rn; k<*rn+3; k++){
-                for (int j=i; j<i+3; j++){
-                    BoxVector.push_back(Matrix[k][j]);
-                    }
-                }
-            i += 3;
-            //PrintVector(BoxVector);
-            BoxVector.clear();
+// gives subsequent box row and column numbers
+void getBoxRCno(int RN, int CN, int &bRN, int &bCN){
+    if (CN<3){
+        if (RN<3){
+            bRN = 0, bCN = 0;
+        }
+        else if(RN>2 && RN<6){
+            bRN = 3, bCN = 0;
+        }
+        else{
+            bRN = 6, bCN = 0;
         }
 
-    }  
+    }
+    else if (CN>2 && CN<6){
+        if (RN<3){
+            bRN = 0, bCN = 3;
+        }
+        else if(RN>2 && RN<6){
+            bRN = 3, bCN = 3;
+        }
+        else{
+            bRN = 6, bCN = 3;
+        }
+        
+    }
+    else{
+        if (RN<3){
+            bRN = 0, bCN = 6;
+        }
+        else if(RN>2 && RN<6){
+            bRN = 3, bCN = 6;
+        }
+        else{
+            bRN = 6, bCN = 6;
+        }
+        
+    }
 }
-
 
 
 bool Condition(std::vector<int> vec1D,int value){
@@ -126,15 +147,36 @@ bool Condition(std::vector<int> vec1D,int value){
 }
 
 
+void RowColBoxCheck(int RN ,int CN, std::vector<std::vector<int>> Matrix){
+    int m = Matrix.size();
+    int n = Matrix[1].size();
+    std::vector<int> RowVector, ColumnVector, BoxVector;
+    RowVector = Matrix[RN];
+
+    for (int j=0;j<m;j++){
+        ColumnVector.push_back(Matrix[j][CN]);
+    }
+    
+    // Box Row number and column row nunber of the box matrix.
+    int bRN, bCN;
+
+    getBoxRCno(RN,CN,bRN, bCN);
+
+    for (int k=bRN; k<bRN+3; k++){
+        for (int j=bCN; j<bCN+3; j++){
+            BoxVector.push_back(Matrix[k][j]);
+        }
+    }
+}
+
+
 void Puzzle::MakePuzzle(std::vector<std::vector<int>> &Matrix){
     int m = Matrix.size();
     int n = Matrix[1].size();
     for (int i=0; i<m; i++){
         for (int j=0; j<n; j++){
-            std::vector<int> testRow;
-            testRow = Matrix[i];
             Matrix[i][j] = rand()%10;
-            bool Row = Condition(testRow,Matrix[i][j]);
+
         }
     }
 }
