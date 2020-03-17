@@ -187,9 +187,15 @@ void Puzzle::GeneratePuzzle(std::vector<std::vector<int>> &Matrix){
     int n = Matrix[1].size(),value;
     for (int i=0; i<m; i++){
         for (int j=0; j<n; j++){
+            
+            std::cout<<"Checkpoint 1 iterations = "<<i<<j<<std::endl;
+
             value = rand()%10;
             bool result = RowColBoxCheck(i,j,value,Matrix);
             while (result==true || value == 0){
+
+                std::cout<<"Checkpoint 2 iterations = "<<i<<j<<std::endl;
+
                 value = rand()%10;
                 result = RowColBoxCheck(i,j,value,Matrix);
             }
