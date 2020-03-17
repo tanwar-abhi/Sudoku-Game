@@ -14,8 +14,10 @@ class Puzzle{
     void PlayDemo();
     void Print2dVec(std::vector<std::vector<int>> Vec);
     void RandomMatrix(std::vector<std::vector<int>> &Mat);
-    //void PuzzleSetup(std::vector<std::vector<int>> &Vec2D);
 
-    void MakePuzzle(std::vector<std::vector<int>> &VecDD);
+    void GeneratePuzzle(std::vector<std::vector<int>> &VecDD);
+
+    //Check this
+    //bool RowColBoxCheck(int RN ,int CN, int number, std::vector<std::vector<int>> Matrix);
 
 };

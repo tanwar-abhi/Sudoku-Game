@@ -16,10 +16,10 @@ int main(){
     
     
     SuPuzzle.Print2dVec(PuzzleMatrix);
-    
-    SuPuzzle.RandomMatrix(PuzzleMatrix);
+
+    SuPuzzle.GeneratePuzzle(PuzzleMatrix);
+    //SuPuzzle.RandomMatrix(PuzzleMatrix);
     SuPuzzle.Print2dVec(PuzzleMatrix);
-    
 
 
 

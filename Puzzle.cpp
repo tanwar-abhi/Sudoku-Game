@@ -33,9 +33,9 @@ void Puzzle::Welcome(){
 void Puzzle::PlayDemo(){
     std::cout<<"\nThe Grid is a 2D matrix of (m*n), i.e. 'm' rows and 'n' columns\n"<<std::endl;
     std::cout<<"General View of all elements of grid are as follows :\n"<<std::endl;
-    for (int i=1;i<10;i++){
-        for (int j=1; j<10; j++){
-            if (j==9){
+    for (int i=0;i<9;i++){
+        for (int j=0; j<9; j++){
+            if (j==8){
                 std::cout<<i<<j<<std::endl;
             }
             else{
@@ -65,7 +65,7 @@ void Puzzle::Print2dVec(std::vector<std::vector<int>> Matrix){
 }
 
 
-//Check by adding random value to random positions
+// Check by adding random value to random positions
 void Puzzle::RandomMatrix(std::vector<std::vector<int>> &Mat){
     srand(time(NULL));
     int m = Mat.size();
@@ -78,8 +78,8 @@ void Puzzle::RandomMatrix(std::vector<std::vector<int>> &Mat){
         pos2 = (rand()%n);
         int value = rand()%10;
         Mat[pos1][pos2] = value;
-    }
-    */
+    }*/
+    
 
    for (int i=0;i<m;i++){
        for (int j=0; j<n; j++){
@@ -89,43 +89,41 @@ void Puzzle::RandomMatrix(std::vector<std::vector<int>> &Mat){
 }
 
 
-// gives subsequent box row and column numbers
-void getBoxRCno(int RN, int CN, int &bRN, int &bCN){
-    if (CN<3){
-        if (RN<3){
-            bRN = 0, bCN = 0;
-        }
-        else if(RN>2 && RN<6){
-            bRN = 3, bCN = 0;
-        }
-        else{
-            bRN = 6, bCN = 0;
-        }
 
-    }
-    else if (CN>2 && CN<6){
-        if (RN<3){
-            bRN = 0, bCN = 3;
+// gives subsequent row and column numbers for the box pertaining to each element of sudoku.
+void getBoxRCno(int RowNo, int ColNo, int &boxRN, int &boxCN){
+    if (ColNo<3){
+        if (RowNo<3){
+            boxRN = 0, boxCN = 0;
         }
-        else if(RN>2 && RN<6){
-            bRN = 3, bCN = 3;
+        else if(RowNo>2 && RowNo<6){
+            boxRN = 3, boxCN = 0;
         }
         else{
-            bRN = 6, bCN = 3;
+            boxRN = 6, boxCN = 0;
         }
-        
+    }
+    else if (ColNo>2 && ColNo<6){
+        if (RowNo<3){
+            boxRN = 0, boxCN = 3;
+        }
+        else if(RowNo>2 && RowNo<6){
+            boxRN = 3, boxCN = 3;
+        }
+        else{
+            boxRN = 6, boxCN = 3;
+        }
     }
     else{
-        if (RN<3){
-            bRN = 0, bCN = 6;
+        if (RowNo<3){
+            boxRN = 0, boxCN = 6;
         }
-        else if(RN>2 && RN<6){
-            bRN = 3, bCN = 6;
+        else if(RowNo>2 && RowNo<6){
+            boxRN = 3, boxCN = 6;
         }
         else{
-            bRN = 6, bCN = 6;
+            boxRN = 6, boxCN = 6;
         }
-        
     }
 }
 
@@ -134,49 +132,68 @@ bool Condition(std::vector<int> vec1D,int value){
     int count = 0;
     for (auto i=vec1D.begin(); i!=vec1D.end(); i++){
         if (*i == value){
-            count += 1;
+            count++;
         }
     }
     switch (count){
-    case 1:
-        return true;
-    
-    default:
+    case 0:
         return false;
+    default:
+        return true;
     }
 }
 
 
-void RowColBoxCheck(int RN ,int CN, std::vector<std::vector<int>> Matrix){
+bool RowColBoxCheck(int RN ,int CN, int number, std::vector<std::vector<int>> Matrix){ 
     int m = Matrix.size();
     int n = Matrix[1].size();
     std::vector<int> RowVector, ColumnVector, BoxVector;
     RowVector = Matrix[RN];
+    bool result[3];
+    result[0] = Condition(RowVector,number);
 
     for (int j=0;j<m;j++){
         ColumnVector.push_back(Matrix[j][CN]);
     }
-    
-    // Box Row number and column row nunber of the box matrix.
-    int bRN, bCN;
+    result[1] = Condition(RowVector,number);
 
+    // Row number and column nunber for the first element of the box matrix.
+    int bRN, bCN, count=0;
     getBoxRCno(RN,CN,bRN, bCN);
-
     for (int k=bRN; k<bRN+3; k++){
         for (int j=bCN; j<bCN+3; j++){
             BoxVector.push_back(Matrix[k][j]);
         }
     }
+    result[2] = Condition(BoxVector,number);
+    for (int i=0; i<3;i++){
+        if (result[i] == true){
+            count++;
+        }
+    }
+
+    switch (count){
+    case 0:
+        return false;
+    default:
+        return true;
+    }
 }
 
 
-void Puzzle::MakePuzzle(std::vector<std::vector<int>> &Matrix){
+void Puzzle::GeneratePuzzle(std::vector<std::vector<int>> &Matrix){
+    srand(time(NULL));
     int m = Matrix.size();
-    int n = Matrix[1].size();
+    int n = Matrix[1].size(),value;
     for (int i=0; i<m; i++){
         for (int j=0; j<n; j++){
-            Matrix[i][j] = rand()%10;
-
+            value = rand()%10;
+            bool result = RowColBoxCheck(i,j,value,Matrix);
+            while (result==true || value == 0){
+                value = rand()%10;
+                result = RowColBoxCheck(i,j,value,Matrix);
+            }
+            Matrix[i][j] = value;
         }
     }
 }
