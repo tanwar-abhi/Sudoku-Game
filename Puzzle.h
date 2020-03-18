@@ -17,7 +17,5 @@ class Puzzle{
 
     void GeneratePuzzle(std::vector<std::vector<int>> &VecDD);
 
-    //Check this
-    //bool RowColBoxCheck(int RN ,int CN, int number, std::vector<std::vector<int>> Matrix);
 
 };

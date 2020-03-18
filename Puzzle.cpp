@@ -180,26 +180,70 @@ bool RowColBoxCheck(int RN ,int CN, int number, std::vector<std::vector<int>> Ma
     }
 }
 
+void setDiagonalBox(std::vector<std::vector<int>> &Matrix){
+    srand(time(NULL));
+    //Right diagonal box fill
+    std::vector<int> boxDiaElement = {0,3,6};
+    for (auto i = boxDiaElement.begin(); i!=boxDiaElement.end();i++){
+        for (int k=*i; k<*i+3;k++){
+            for (int j=*i; j<*i+3; j++){
+                int value = Matrix[k][j];
+                bool result = RowColBoxCheck(k,j,value,Matrix);
+                while (result){
+                    value = rand()%10;
+                    result = RowColBoxCheck(k,j,value,Matrix);
+                    Matrix[k][j] = value;
+                }
+            }
+        }
+        // Left diagonal Box filling
+        if (*i==0){
+            for (int j=*i;j<*i+3;j++){
+                for (int k=6; k<9; k++){
+                    int value = Matrix[j][k];
+                    bool result = RowColBoxCheck(j,k,value,Matrix);
+                    while(result){
+                        value = rand()%10;
+                        result = RowColBoxCheck(j,k,value,Matrix);
+                        Matrix[j][k] = value;
+                    }
+                }
+            }
+        }
+        else if(*i==6){
+            for (int j=*i; j<*i+3; j++){
+                for (int k=0; k<3; k++){
+                    int value = Matrix[j][k];
+                    bool result = RowColBoxCheck(j,k,value,Matrix);
+                    while(result){
+                        value = rand()%10;
+                        result = RowColBoxCheck(j,k,value,Matrix);
+                        Matrix[j][k] = value;
+                    }
+                }
+            }
+        }
+    }
+}
 
 void Puzzle::GeneratePuzzle(std::vector<std::vector<int>> &Matrix){
+    setDiagonalBox(Matrix);
+    /*
     srand(time(NULL));
     int m = Matrix.size();
     int n = Matrix[1].size(),value;
     for (int i=0; i<m; i++){
         for (int j=0; j<n; j++){
-            
-            std::cout<<"Checkpoint 1 iterations = "<<i<<j<<std::endl;
-
             value = rand()%10;
             bool result = RowColBoxCheck(i,j,value,Matrix);
-            while (result==true || value == 0){
-
-                std::cout<<"Checkpoint 2 iterations = "<<i<<j<<std::endl;
-
+            Print2dVec(Matrix);
+            while (result || value==0){
                 value = rand()%10;
                 result = RowColBoxCheck(i,j,value,Matrix);
+                Print2dVec(Matrix);
             }
             Matrix[i][j] = value;
         }
     }
+    */
 }
