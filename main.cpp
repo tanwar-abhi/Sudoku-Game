@@ -22,10 +22,11 @@ int main(){
     Sudoku.Print2dVec(PuzzleMatrix);
 
 
-
+    /*
     Grid Su1;
     //Su1.makeGrid(Answers);
-    //Su1.InitialGrid(Answers);
+    Su1.InitialGrid(PuzzleMatrix);
+    */
    
     return 0;
 }

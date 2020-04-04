@@ -44,6 +44,9 @@ void Grid::InitialGrid(std::vector<std::vector <int>> Ans){
     int m = Ans.size();
     int n = Ans[0].size();
     for (int i=0; i<m; i++){
+        if (i==0 ){
+            std::cout<<"|-----------|-----------|-----------|"<<std::endl;
+        }
         for (int j=0; j<n; j++){
             if ( j==n-1){
                 std::cout<<Ans[i][j]<<" | "<<std::endl;
