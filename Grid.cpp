@@ -2,7 +2,6 @@
 // It contains all the code and rountines used to build the aesthetical view of puzzle.
 
 #include <iostream>
-//#include <vector>
 #include "Grid.h"
 
 

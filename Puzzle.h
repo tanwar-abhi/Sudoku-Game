@@ -10,12 +10,14 @@ class Puzzle{
     Puzzle();
     ~Puzzle();
 
-    void Welcome();
+    void Welcome(std::vector<std::vector<int>> &vec2DD);
     void PlayDemo();
     void Print2dVec(std::vector<std::vector<int>> Vec);
     void RandomMatrix(std::vector<std::vector<int>> &Mat);
 
     void GeneratePuzzle(std::vector<std::vector<int>> &VecDD);
+
+    void UserPuzzle(std::vector<std::vector<int>> &vect2D);
 
 
 };

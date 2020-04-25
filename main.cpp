@@ -7,13 +7,14 @@
 
 int main(){
 
-    Puzzle Sudoku;
-    Sudoku.Welcome();
- 
     int m=9, n=9;
     //2D vector that contains the Grid elements.
     std::vector<std::vector<int>> PuzzleMatrix(m, std::vector<int> (n));
-    
+
+    Puzzle Sudoku;
+
+    Sudoku.Welcome(PuzzleMatrix);
+ 
     
     Sudoku.Print2dVec(PuzzleMatrix);
 
@@ -26,7 +27,11 @@ int main(){
     Grid Su1;
     //Su1.makeGrid(Answers);
     Su1.InitialGrid(PuzzleMatrix);
+    
+    Sudoku.UserPuzzle(PuzzleMatrix);
+    Sudoku.Print2dVec(PuzzleMatrix);
     */
+    
    
     return 0;
 }

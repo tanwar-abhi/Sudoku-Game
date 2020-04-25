@@ -3,7 +3,6 @@
 
 #pragma once
 
-#include <iostream>
 #include <vector>
 
 class Grid{
@@ -13,7 +12,7 @@ class Grid{
     ~Grid();
     int a, b;
 
-    void makeGrid(std::vector<std::vector<int> > &matrix);
+    void makeGrid(std::vector<std::vector<int>> &matrix);
     void updateGrid();
 
     void InitialGrid(std::vector<std::vector<int>> aMatrix);
