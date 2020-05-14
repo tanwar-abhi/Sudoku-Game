@@ -15,6 +15,9 @@ Puzzle::~Puzzle(){
 }
 
 void Puzzle::Welcome(std::vector<std::vector<int>> &Vector2D){
+    //Generated random seed for random number creation.
+    srand(time(NULL));
+
     std::cout << "\n#####################################################\n#\n# *** Welcome to the game of Sudoku, My Friend ****\n#\n#####################################################\n\n";
     std::cout << "Press 1 for Instructions on playing\nPress 2 to randomly generate puzzle and start playing\nPress 3 to enter a user defined puzzle to be solved by the solver"<<std::endl;
     int x;
@@ -62,30 +65,6 @@ void Puzzle::Print2dVec(std::vector<std::vector<int>> Matrix){
             else{
                 std::cout << Matrix[i][j] << " ";
             }
-        }
-    }
-}
-
-// Check by adding random value to random positions
-void Puzzle::RandomMatrix(std::vector<std::vector<int>> &Mat){
-    srand(time(NULL));
-    int m = Mat.size();
-    int n = Mat[1].size();
-
-    /* Putting random values [0,9] at random positions of the matrix.
-    int pos1,pos2;
-    for (int i=0; i<70;i++){
-        pos1 = (rand()%m);
-        pos2 = (rand()%n);
-        int value = rand()%10;
-        Mat[pos1][pos2] = value;
-    }*/
-
-    for (int i = 0; i < m; i++)
-    {
-        for (int j = 0; j < n; j++)
-        {
-            Mat[i][j] = rand() % 10;
         }
     }
 }
@@ -147,20 +126,13 @@ void getBoxRCno(int RowNo, int ColNo, int &boxRN, int &boxCN){
 
 
 bool Condition(std::vector<int> vec1D, int value){
-    int count = 0;
     for (auto i = vec1D.begin(); i != vec1D.end(); i++){
         if (*i == value){
-            count++;
+            return true;
         }
     }
-    switch (count){
-    case 0:
-        return false;
-    default:
-        return true;
-    }
+    return false;
 }
-
 
 
 
@@ -218,12 +190,12 @@ void ResetBox(std::vector<std::vector<int>> &Vector2D, int &RowN, int &ColN, int
 
 
 void setDiagonalBox(std::vector<std::vector<int>> &Matrix){
-    srand(time(NULL));
+
     //Right diagonal box fill
     std::vector<int> boxDiaElement = {0, 3, 6};
     for (auto i = boxDiaElement.begin(); i != boxDiaElement.end(); i++){
-        for (int k = *i; k < *i + 3; k++){
-            for (int j = *i; j < *i + 3; j++){
+        for (int k = *i; k < *i+3; k++){
+            for (int j = *i; j < *i+3; j++){
                 int value = Matrix[k][j];
                 bool result = RowColBoxCheck(k, j, value, Matrix);
                 int iteration = 0;
@@ -231,59 +203,16 @@ void setDiagonalBox(std::vector<std::vector<int>> &Matrix){
                     iteration++;
                     value = rand() % 10;
                     result = RowColBoxCheck(k, j, value, Matrix);
-                    Matrix[k][j] = value;
+                    /*
                     if (iteration>500){
                         ResetBox(Matrix,k,j,iteration);
                     }
+                    */
                 }
+                Matrix[k][j] = value;
             }
         }
-    }
-
-    /*
-    boxDiaElement = {0, 6};
-    for (auto i=boxDiaElement.begin(); i!=boxDiaElement.end(); i++){
-        // Left Digonal box elementss
-        if (*i == 0){
-            for (int l = *i; l<*i+3; l++){
-                for (int m = 6; m < 9; m++){
-                    int value = Matrix[l][m];
-                    bool result = RowColBoxCheck(l, m, value, Matrix);
-                    int iteration = 0;
-                    while (result){
-                        iteration++;
-                        value = rand() % 10;
-                        result = RowColBoxCheck(l, m, value, Matrix);
-                        Matrix[l][m] = value;
-                        if (iteration > 500){
-                            ResetBox(Matrix, l, m, iteration);
-                        }
-                    }
-                }
-            }
-        }
-
-        else if (*i == 6){
-            for (int m=*i; m<*i+3; m++){
-                for (int n = 0; n < 3; n++){
-                    int value = Matrix[m][n];
-                    bool result = RowColBoxCheck(m, n, value, Matrix);
-                    int iteration = 0;
-                    while (result){
-                        iteration++;
-                        value = rand() % 10;
-                        result = RowColBoxCheck(m, n, value, Matrix);
-                        Matrix[m][n] = value;
-                        if (iteration > 500){
-                            ResetBox(Matrix, m, n, iteration);
-                        }
-                    }
-                }
-            }
-        }
-    }
-    */
-    
+    }  
 }
 
 
@@ -293,7 +222,6 @@ void puzzleBoxFill(std::vector<std::vector<int>> &vec2D, int RowN, int ColN){
         for (int j=ColN; j<ColN+3; j++){
             int value = rand()%10, iteration = 0;
             bool result = RowColBoxCheck(i,j,value,vec2D);
-            vec2D[i][j] = value;
             while (result){
                 iteration++;
                 value = rand()%10;
@@ -301,7 +229,27 @@ void puzzleBoxFill(std::vector<std::vector<int>> &vec2D, int RowN, int ColN){
                 if (iteration>500){
                     ResetBox(vec2D,i,j,iteration);
                 }
-                vec2D[i][j] = value;
+            }
+            vec2D[i][j] = value;
+        }
+    }
+}
+
+
+void BackTrackFillRow(std::vector<std::vector<int>> &Vector2D, int RowN, int ColN){
+    int m = Vector2D.size();
+    int n = Vector2D[1].size();
+    int value;
+    for (int i=0; i<m; i++ ){
+        for (int j=0; j<n; j++){
+            if (i==0){
+                value = rand()%10;
+                bool result = RowColBoxCheck(i,j,value,Vector2D);
+                while(result){
+                    value = rand()%10;
+                    result = RowColBoxCheck(i,j,value,Vector2D);
+                }
+                Vector2D[i][j] = value;
             }
         }
     }
@@ -309,28 +257,15 @@ void puzzleBoxFill(std::vector<std::vector<int>> &vec2D, int RowN, int ColN){
 
 
 
-
-
 void Puzzle::GeneratePuzzle(std::vector<std::vector<int>> &Matrix){
-    puzzleBoxFill(Matrix,0,0);
-    Puzzle::Print2dVec(Matrix);
-    
+    //puzzleBoxFill(Matrix,0,0);
+
+    BackTrackFillRow(Matrix,0,3);
 
 
-    /*
-    puzzleBoxFill(Matrix,3,0);
-    Puzzle::Print2dVec(Matrix);
-    puzzleBoxFill(Matrix,0,3);
-    Puzzle::Print2dVec(Matrix);
-    puzzleBoxFill(Matrix,0,6);
-    Puzzle::Print2dVec(Matrix);
-    puzzleBoxFill(Matrix,6,0);
-    
-    */
+
 
 }
-
-
 
 
 
@@ -375,8 +310,6 @@ void setNonDiagonalEmenets(std::vector<std::vector<int>> &Matrix){
 }
 
 
-
-
 void FillAllRow(std::vector<std::vector<int>> &vec2DD){
     for (int i=0; i<9; i++){
         for (int j=0; j<9; j++){
@@ -391,7 +324,6 @@ void FillAllRow(std::vector<std::vector<int>> &vec2DD){
         }
     }
 }
-
 
 
 void FillbyRow(std::vector<std::vector<int>> &vec2D ){
@@ -438,7 +370,6 @@ bool BinarySearch(std::vector<int> vec1D, int value){
     }
     return false;
 }
-
 
 
 void FillbyColumn(std::vector<std::vector<int>> &vec2D){

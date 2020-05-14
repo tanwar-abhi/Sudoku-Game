@@ -13,7 +13,6 @@ class Puzzle{
     void Welcome(std::vector<std::vector<int>> &vec2DD);
     void PlayDemo();
     void Print2dVec(std::vector<std::vector<int>> Vec);
-    void RandomMatrix(std::vector<std::vector<int>> &Mat);
 
     void GeneratePuzzle(std::vector<std::vector<int>> &VecDD);
 

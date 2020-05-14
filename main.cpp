@@ -14,18 +14,15 @@ int main(){
     Puzzle Sudoku;
 
     Sudoku.Welcome(PuzzleMatrix);
- 
     
     Sudoku.Print2dVec(PuzzleMatrix);
 
     Sudoku.GeneratePuzzle(PuzzleMatrix);
-    //Sudoku.RandomMatrix(PuzzleMatrix);
     Sudoku.Print2dVec(PuzzleMatrix);
 
 
     /*
     Grid Su1;
-    //Su1.makeGrid(Answers);
     Su1.InitialGrid(PuzzleMatrix);
     
     Sudoku.UserPuzzle(PuzzleMatrix);
