@@ -3,7 +3,13 @@
 #include <iostream>
 #include "Puzzle.h"
 #include <ctime>
+// <iomanip> is for the manipulator using "setw" for adding width{formating purpose}
+#include <iomanip>
 //#include <algorithm>
+
+
+std::vector<int> ElementTracker = {1,2,3,4,5,6,7,8,9};
+
 
 //Default emplty constructor
 Puzzle::Puzzle(){
@@ -18,7 +24,12 @@ void Puzzle::Welcome(std::vector<std::vector<int>> &Vector2D){
     //Generated random seed for random number creation.
     srand(time(NULL));
 
-    std::cout << "\n#####################################################\n#\n# *** Welcome to the game of Sudoku, My Friend ****\n#\n#####################################################\n\n";
+    std::cout << "\n#####################################################\n";
+    std::cout<<"#"<<std::setw(53)<<"#\n";
+    std::cout<<"# *** Welcome to the game of Sudoku, My Friend **** #"<<std::endl;
+    std::cout<<"#"<<std::setw(52)<<"#"<<std::endl;
+    std::cout << "#####################################################\n"<<std::endl;
+
     std::cout << "Press 1 for Instructions on playing\nPress 2 to randomly generate puzzle and start playing\nPress 3 to enter a user defined puzzle to be solved by the solver"<<std::endl;
     int x;
     std::cin >> x;
@@ -34,7 +45,7 @@ void Puzzle::Welcome(std::vector<std::vector<int>> &Vector2D){
 }
 
 void Puzzle::PlayDemo(){
-    std::cout << "\nThe Grid is a 2D matrix of (m*n), i.e. 'm' rows and 'n' columns\n"
+    std::cout << "\nThe Grid is a 2D matrix of (9x9), i.e. 9 rows and 9 columns\n"
               << std::endl;
     std::cout << "General View of all elements of grid are as follows :\n"
               << std::endl;
@@ -173,20 +184,7 @@ bool RowColBoxCheck(int RN, int CN, int number, std::vector<std::vector<int>> Ma
 }
 
 
-// If there is a conflict then reset that box(block of sudoku puzzle) and try again.
-void ResetBox(std::vector<std::vector<int>> &Vector2D, int &RowN, int &ColN, int &iter){
-    int BoxRN, BoxCN;
-    getBoxRCno(RowN, ColN, BoxRN, BoxCN);
-    for (int i = BoxRN; i < BoxRN + 3; i++){
-        for (int j = BoxCN; j < BoxCN + 3; j++){
-            Vector2D[i][j] = 0;
-        }
-    }
-    // After resetting the box, reset row, column number, iteration to resume from first element of resetted box.
-    RowN = BoxRN;
-    ColN = BoxCN;
-    iter = 1;
-}
+
 
 
 void setDiagonalBox(std::vector<std::vector<int>> &Matrix){
@@ -217,26 +215,8 @@ void setDiagonalBox(std::vector<std::vector<int>> &Matrix){
 
 
 
-void puzzleBoxFill(std::vector<std::vector<int>> &vec2D, int RowN, int ColN){
-    for (int i=RowN; i<RowN+3; i++){
-        for (int j=ColN; j<ColN+3; j++){
-            int value = rand()%10, iteration = 0;
-            bool result = RowColBoxCheck(i,j,value,vec2D);
-            while (result){
-                iteration++;
-                value = rand()%10;
-                result = RowColBoxCheck(i,j,value,vec2D);
-                if (iteration>500){
-                    ResetBox(vec2D,i,j,iteration);
-                }
-            }
-            vec2D[i][j] = value;
-        }
-    }
-}
 
-
-void BackTrackFillRow(std::vector<std::vector<int>> &Vector2D, int RowN, int ColN){
+void FillRow(std::vector<std::vector<int>> &Vector2D, int RowN, int ColN){
     int m = Vector2D.size();
     int n = Vector2D[1].size();
     int value;
@@ -251,19 +231,53 @@ void BackTrackFillRow(std::vector<std::vector<int>> &Vector2D, int RowN, int Col
                 }
                 Vector2D[i][j] = value;
             }
+            else{
+                for (int value=1; value<10; value++){
+                    bool result = RowColBoxCheck(i,j,value,Vector2D);
+                    if (result == false){
+                        Vector2D[i][j] = value;
+                        break;
+                    }
+                }
+                if(value==9){
+                        //Run BackTracking Algorithm here.
+                    }
+         
+            }
         }
     }
 }
 
 
 
+
+void RecursiveRF(std::vector<std::vector<int>> &Matrix,int RowN, int ColN){
+    int value = rand()%10;
+    bool result = RowColBoxCheck(RowN,ColN,value,Matrix);
+    if (result == false && ColN<8){
+        Matrix[RowN][ColN] = value;
+        printMatrix(Matrix);
+        RecursiveRF(Matrix,RowN,ColN+1);
+    }
+    else if(result==false && ColN==8){
+        Matrix[RowN][ColN] = value;
+        printMatrix(Matrix);
+        RecursiveRF(Matrix,RowN+1,0);
+    }
+    else if(ColN==8 && RowN==8){
+        printMatrix(Matrix);
+        return;
+    }
+    else{
+        printMatrix(Matrix);
+        RecursiveRF(Matrix,RowN,ColN);
+    }
+}
+
 void Puzzle::GeneratePuzzle(std::vector<std::vector<int>> &Matrix){
     //puzzleBoxFill(Matrix,0,0);
 
-    BackTrackFillRow(Matrix,0,3);
-
-
-
+    FillRow(Matrix,0,0);
 
 }
 
@@ -280,6 +294,11 @@ void Puzzle::UserPuzzle(std::vector<std::vector<int>> &Matrix){
             Matrix[i][j] = digit;
         }
     }
+}
+
+void Puzzle::SolveSudoku(std::vector<std::vector<int>> &Matrix){
+    
+
 }
 
 
@@ -370,6 +389,46 @@ bool BinarySearch(std::vector<int> vec1D, int value){
     }
     return false;
 }
+
+
+
+
+void puzzleBoxFill(std::vector<std::vector<int>> &vec2D, int RowN, int ColN){
+    for (int i=RowN; i<RowN+3; i++){
+        for (int j=ColN; j<ColN+3; j++){
+            int value = rand()%10, iteration = 0;
+            bool result = RowColBoxCheck(i,j,value,vec2D);
+            while (result){
+                iteration++;
+                value = rand()%10;
+                result = RowColBoxCheck(i,j,value,vec2D);
+                if (iteration>500){
+                    ResetBox(vec2D,i,j,iteration);
+                }
+            }
+            vec2D[i][j] = value;
+        }
+    }
+}
+
+
+
+// If there is a conflict then reset that box(block of sudoku puzzle) and try again.
+void ResetBox(std::vector<std::vector<int>> &Vector2D, int &RowN, int &ColN, int &iter){
+    int BoxRN, BoxCN;
+    getBoxRCno(RowN, ColN, BoxRN, BoxCN);
+    for (int i = BoxRN; i < BoxRN + 3; i++){
+        for (int j = BoxCN; j < BoxCN + 3; j++){
+            Vector2D[i][j] = 0;
+        }
+    }
+    // After resetting the box, reset row, column number, iteration to resume from first element of resetted box.
+    RowN = BoxRN;
+    ColN = BoxCN;
+    iter = 1;
+}
+
+
 
 
 void FillbyColumn(std::vector<std::vector<int>> &vec2D){

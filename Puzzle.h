@@ -18,5 +18,6 @@ class Puzzle{
 
     void UserPuzzle(std::vector<std::vector<int>> &vect2D);
 
+    void SolveSudoku(std::vector<std::vector<int>> &vector2D);
 
 };
