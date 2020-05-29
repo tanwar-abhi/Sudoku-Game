@@ -30,7 +30,7 @@ void Puzzle::Welcome(std::vector<std::vector<int>> &Vector2D){
     std::cout<<"#"<<std::setw(52)<<"#"<<std::endl;
     std::cout << "#####################################################\n"<<std::endl;
 
-    std::cout << "Press 1 for Instructions on playing\nPress 2 to randomly generate puzzle and start playing\nPress 3 to enter a user defined puzzle to be solved by the solver"<<std::endl;
+    std::cout << "Press 1 for Instructions on playing\nPress 2 to randomly generate puzzle and start playing\nPress 3 to enter a user defined puzzle which will be solved by the solver"<<std::endl;
     int x;
     std::cin >> x;
     switch (x){
@@ -98,43 +98,6 @@ void printMatrix(std::vector<std::vector<int>> Mat){
 }
 
 
-// gives subsequent row and column numbers for the box pertaining to each element of sudoku.
-void getBoxRCno(int RowNo, int ColNo, int &boxRN, int &boxCN){
-    if (ColNo < 3){
-        if (RowNo < 3){
-            boxRN = 0, boxCN = 0;
-        }
-        else if (RowNo > 2 && RowNo < 6){
-            boxRN = 3, boxCN = 0;
-        }
-        else{
-            boxRN = 6, boxCN = 0;
-        }
-    }
-    else if (ColNo > 2 && ColNo < 6){
-        if (RowNo < 3){
-            boxRN = 0, boxCN = 3;
-        }
-        else if (RowNo > 2 && RowNo < 6){
-            boxRN = 3, boxCN = 3;
-        }
-        else{
-            boxRN = 6, boxCN = 3;
-        }
-    }
-    else{
-        if (RowNo < 3){
-            boxRN = 0, boxCN = 6;
-        }
-        else if (RowNo > 2 && RowNo < 6){
-            boxRN = 3, boxCN = 6;
-        }
-        else{
-            boxRN = 6, boxCN = 6;
-        }
-    }
-}
-
 
 bool Condition(std::vector<int> vec1D, int value){
     for (auto i = vec1D.begin(); i != vec1D.end(); i++){
@@ -161,8 +124,10 @@ bool RowColBoxCheck(int RN, int CN, int number, std::vector<std::vector<int>> Ma
     result[1] = Condition(ColumnVector, number);
 
     // Row number and column nunber for the first element of the box matrix.
-    int bRN, bCN, count = 0;
-    getBoxRCno(RN, CN, bRN, bCN);
+    int count = 0;
+    
+    int bRN = (RN/3)*3;
+    int bCN = (CN/3)*3;
     for (int k = bRN; k < bRN + 3; k++){
         for (int j = bCN; j < bCN + 3; j++){
             BoxVector.push_back(Matrix[k][j]);
@@ -182,8 +147,6 @@ bool RowColBoxCheck(int RN, int CN, int number, std::vector<std::vector<int>> Ma
         return true;
     }
 }
-
-
 
 
 
@@ -241,7 +204,7 @@ void FillRow(std::vector<std::vector<int>> &Vector2D, int RowN, int ColN){
                 }
                 if(value==9){
                         //Run BackTracking Algorithm here.
-                    }
+                }
          
             }
         }
@@ -285,6 +248,7 @@ void Puzzle::GeneratePuzzle(std::vector<std::vector<int>> &Matrix){
 
 
 void Puzzle::UserPuzzle(std::vector<std::vector<int>> &Matrix){
+    /*
     std::cout<<"Enter the digits( with spaces after each digit) of your puzzle you wish to solve\nStarting from top left corner keep on entering the digits"<<std::endl;
     std::cout<<"Enter '0' to signify the blank spaces in the puzzle."<<std::endl;
     int digit;
@@ -294,16 +258,34 @@ void Puzzle::UserPuzzle(std::vector<std::vector<int>> &Matrix){
             Matrix[i][j] = digit;
         }
     }
+    Initially for checking lets enter a puzzle whose solution we already know.
+    */
+   Matrix = {{0,0,0,0,5,0,0,4,0},
+            {0,0,6,7,4,1,2,8,5},
+            {4,8,0,9,0,0,0,0,6},
+            {2,0,0,0,6,0,0,0,0},
+            {0,9,8,1,0,2,5,6,0},
+            {0,0,0,0,9,0,0,0,7},
+            {3,0,0,0,0,9,0,1,2},
+            {8,7,2,3,1,6,4,0,0},
+            {0,1,0,0,7,0,0,0,0}};
 }
 
+
+
 void Puzzle::SolveSudoku(std::vector<std::vector<int>> &Matrix){
-    
+    int m = Matrix.size();
+    int n = Matrix[1].size();
 
 }
 
 
 /*
-void setNonDiagonalEmenets(std::vector<std::vector<int>> &Matrix){
+
+
+
+
+void setNonDiagonalElements(std::vector<std::vector<int>> &Matrix){
     srand(time(NULL));
  
     for (int i=0; i<9; i++){
@@ -329,20 +311,6 @@ void setNonDiagonalEmenets(std::vector<std::vector<int>> &Matrix){
 }
 
 
-void FillAllRow(std::vector<std::vector<int>> &vec2DD){
-    for (int i=0; i<9; i++){
-        for (int j=0; j<9; j++){
-            if (vec2DD[i][j] == 0 ){
-                for (int num=1; num<10; num++){
-                    bool result = RowColBoxCheck(i,j,num,vec2DD);
-                    if (result == false){
-                        vec2DD[i][j] = num;
-                    }
-                }
-            }
-        }
-    }
-}
 
 
 void FillbyRow(std::vector<std::vector<int>> &vec2D ){
@@ -430,33 +398,4 @@ void ResetBox(std::vector<std::vector<int>> &Vector2D, int &RowN, int &ColN, int
 
 
 
-
-void FillbyColumn(std::vector<std::vector<int>> &vec2D){
-    srand(time(NULL));
-    for (int i=0; i<9; i++){
-        for (int j=0; j<9; j++){
-            if (vec2D[j][i] == 0){
-                int value = rand()%10, iteration=0, lo=0;
-                bool result = RowColBoxCheck(j,i,value,vec2D);
-                vec2D[j][i] = value;
-                while (result){
-                    iteration++;
-                    value = rand()%10;
-                    result = RowColBoxCheck(j,i,value,vec2D);
-                    vec2D[j][i] = value;
-                    if (iteration>500){
-                        if (lo>500){
-                            goto Stuck;
-                        }
-                        ResetBox(vec2D,j,i,iteration);
-                    }
-                }
-                printMatrix(vec2D);
-            }
-        }
-    }
-
-Stuck:
-    std::cout<<"###Program Stuck########\n";
-}
 */

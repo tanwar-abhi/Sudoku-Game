@@ -17,6 +17,9 @@ int main(){
     
     Sudoku.Print2dVec(PuzzleMatrix);
 
+    //Sudoku.GeneratePuzzle(PuzzleMatrix);
+    //Sudoku.Print2dVec(PuzzleMatrix);
+
 
     /*
     Grid Su1;
