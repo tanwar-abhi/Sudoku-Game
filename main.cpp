@@ -17,6 +17,14 @@ int main(){
     
     Sudoku.Print2dVec(PuzzleMatrix);
 
+    if (Sudoku.SolveSudoku(PuzzleMatrix)){
+        Sudoku.Print2dVec(PuzzleMatrix);
+    }
+    else{
+        std::cout<<"Solution could not be optained, check your implementation."<<std::endl;
+    }
+    
+
     //Sudoku.GeneratePuzzle(PuzzleMatrix);
     //Sudoku.Print2dVec(PuzzleMatrix);
 

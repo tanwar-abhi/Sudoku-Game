@@ -18,6 +18,8 @@ class Puzzle{
 
     void UserPuzzle(std::vector<std::vector<int>> &vect2D);
 
-    void SolveSudoku(std::vector<std::vector<int>> &vector2D);
+    bool SolveSudoku(std::vector<std::vector<int>> &vector2D);
+
+    //bool isGridFull(std::vector<std::vector <int>> VecR2D);
 
 };
