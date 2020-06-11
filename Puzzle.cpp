@@ -85,23 +85,8 @@ void Puzzle::Print2dVec(std::vector<std::vector<int>> Matrix){
 }
 
 
-void printMatrix(std::vector<std::vector<int>> Mat){
-    int m = Mat.size();
-    int n = Mat[1].size();
-    std::cout<<"The matrix is :: "<<std::endl;
-    for (int i=0; i<m; i++){
-        for (int j=0; j<n; j++){
-            if (j==n-1){
-                std::cout<<Mat[i][j]<<std::endl;
-            }
-            else{
-                std::cout<<Mat[i][j]<<" ";
-            }
-        }
-    }
-}
-
-
+// This function checks whether the grid is solved or not.
+// It acts as the termination condition for recursive backtraking solve algorithm.
 bool isGridSolved(std::vector<std::vector <int>> Matrix){
     int m = Matrix.size();
     int n = Matrix[0].size();
@@ -171,44 +156,26 @@ bool RowColBoxCheck(int RN, int CN, int number, std::vector<std::vector<int>> Ma
 
 
 
-void setDiagonalBox(std::vector<std::vector<int>> &Matrix){
-
-    //Right diagonal box fill
-    std::vector<int> boxDiaElement = {0, 3, 6};
-    for (auto i = boxDiaElement.begin(); i != boxDiaElement.end(); i++){
-        for (int k = *i; k < *i+3; k++){
-            for (int j = *i; j < *i+3; j++){
-                int value = Matrix[k][j];
-                bool result = RowColBoxCheck(k, j, value, Matrix);
-                int iteration = 0;
-                while (result){
-                    iteration++;
-                    value = rand() % 10;
-                    result = RowColBoxCheck(k, j, value, Matrix);
-                    /*
-                    if (iteration>500){
-                        ResetBox(Matrix,k,j,iteration);
-                    }
-                    */
-                }
-                Matrix[k][j] = value;
+void puzzleBoxFill(std::vector<std::vector <int>> &Matrix,int Row, int Col){
+    for (int i=Row; i<Row+3; i++){
+        for (int j=Col; j<Col+3; j++){
+            int number = rand()%10;
+            while (RowColBoxCheck(Row,Col,number, Matrix)){
+                number = rand()%10;
             }
+            Matrix[i][j] = number;
         }
     }
 }
 
 
-
-
 void Puzzle::GeneratePuzzle(std::vector<std::vector<int>> &Matrix){
-    //puzzleBoxFill(Matrix,0,0);
-
-
+    puzzleBoxFill(Matrix,0,0);
 }
 
 
 
-
+// Enter user defined puzzle to be solved by the algorithm.
 void Puzzle::UserPuzzle(std::vector<std::vector<int>> &Matrix){
     /*
     std::cout<<"Enter the digits( with spaces after each digit) of your puzzle you wish to solve\nStarting from top left corner keep on entering the digits"<<std::endl;
@@ -234,7 +201,7 @@ void Puzzle::UserPuzzle(std::vector<std::vector<int>> &Matrix){
 }
 
 
-
+// Recursively calling the SolveSudoku function and empolying backtracking to solve grid.
 bool Puzzle::SolveSudoku(std::vector<std::vector<int>> &Matrix){
     int m = Matrix.size();
     int n = Matrix[0].size();
@@ -243,13 +210,14 @@ bool Puzzle::SolveSudoku(std::vector<std::vector<int>> &Matrix){
         for (int j=0; j<n; j++){
             if (Matrix[i][j] == 0){
                 for (int value = 1; value<10; value++ ){
-                    bool result = RowColBoxCheck(i,j,value,Matrix);
-                    if (result == false){
+                    if (!RowColBoxCheck(i,j,value,Matrix)){
                         //ElementTracker.push_back(value);
                         Matrix[i][j] = value;
+            
                         if (isGridSolved(Matrix)){
                             return true; 
                         }
+                    
                         if (SolveSudoku(Matrix)){
                             return true;
                         }
@@ -269,96 +237,22 @@ bool Puzzle::SolveSudoku(std::vector<std::vector<int>> &Matrix){
 
 /*
 
-void FillRow(std::vector<std::vector<int>> &Vector2D, int RowN, int ColN){
-    int m = Vector2D.size();
-    int n = Vector2D[1].size();
-    int value;
-    for (int i=0; i<m; i++ ){
+
+void printMatrix(std::vector<std::vector<int>> Mat){
+    int m = Mat.size();
+    int n = Mat[1].size();
+    std::cout<<"The matrix is :: "<<std::endl;
+    for (int i=0; i<m; i++){
         for (int j=0; j<n; j++){
-            if (i==0){
-                value = rand()%10;
-                bool result = RowColBoxCheck(i,j,value,Vector2D);
-                while(result){
-                    value = rand()%10;
-                    result = RowColBoxCheck(i,j,value,Vector2D);
-                }
-                Vector2D[i][j] = value;
+            if (j==n-1){
+                std::cout<<Mat[i][j]<<std::endl;
             }
             else{
-                for (int value=1; value<10; value++){
-                    bool result = RowColBoxCheck(i,j,value,Vector2D);
-                    if (result == false){
-                        Vector2D[i][j] = value;
-                        break;
-                    }
-                }
-                if(value==9){
-                        //Run BackTracking Algorithm here.
-                }
-         
+                std::cout<<Mat[i][j]<<" ";
             }
         }
     }
 }
-
-
-
-
-
-void setNonDiagonalElements(std::vector<std::vector<int>> &Matrix){
-    srand(time(NULL));
- 
-    for (int i=0; i<9; i++){
-        for (int j=0; j<9; j++){
-            if ( Matrix[i][j] == 0 ){
-                int num = rand()%10;
-                bool result = RowColBoxCheck(i,j,num,Matrix);
-                Matrix[i][j] = num;
-                int iter = 0;
-                while (result){
-                    iter++;
-                    num = rand()%10;
-                    result = RowColBoxCheck(i,j,num,Matrix);
-                    Matrix[i][j] = num;
-                    if (iter>500){
-                        ResetBox(Matrix,i,j,iter);
-                    }
-                }
-                printMatrix(Matrix);
-            }
-        }
-    }
-}
-
-
-
-
-void FillbyRow(std::vector<std::vector<int>> &vec2D ){
-    
-    for (int i=0; i<9; i++){
-        for (int j=0; j<9; j++){
-            if (vec2D[i][j] == 0){
-                int value = rand()%10;
-                bool result = RowColBoxCheck(i,j,value,vec2D);
-                vec2D[i][j] = value;
-                int iteration = 0;
-                while (result){
-                    iteration++;
-                    value = rand()%10;
-                    result = RowColBoxCheck(i,j,value,vec2D);
-                    vec2D[i][j] = value;
-                    if (iteration>500){
-                        std::cout<<"Stuck here\nPosition :: "<<i<<","<<j<<";\nValue = "<<value<<std::endl;
-                        printMatrix(vec2D);
-                        ResetBox(vec2D,i,j,iteration);
-                    }
-                }
-            }
-        }
-        //printMatrix(vec2D);
-    }
-
-} 
 
 
 bool BinarySearch(std::vector<int> vec1D, int value){
@@ -376,44 +270,6 @@ bool BinarySearch(std::vector<int> vec1D, int value){
         }
     }
     return false;
-}
-
-
-
-
-void puzzleBoxFill(std::vector<std::vector<int>> &vec2D, int RowN, int ColN){
-    for (int i=RowN; i<RowN+3; i++){
-        for (int j=ColN; j<ColN+3; j++){
-            int value = rand()%10, iteration = 0;
-            bool result = RowColBoxCheck(i,j,value,vec2D);
-            while (result){
-                iteration++;
-                value = rand()%10;
-                result = RowColBoxCheck(i,j,value,vec2D);
-                if (iteration>500){
-                    ResetBox(vec2D,i,j,iteration);
-                }
-            }
-            vec2D[i][j] = value;
-        }
-    }
-}
-
-
-
-// If there is a conflict then reset that box(block of sudoku puzzle) and try again.
-void ResetBox(std::vector<std::vector<int>> &Vector2D, int &RowN, int &ColN, int &iter){
-    int BoxRN, BoxCN;
-    getBoxRCno(RowN, ColN, BoxRN, BoxCN);
-    for (int i = BoxRN; i < BoxRN + 3; i++){
-        for (int j = BoxCN; j < BoxCN + 3; j++){
-            Vector2D[i][j] = 0;
-        }
-    }
-    // After resetting the box, reset row, column number, iteration to resume from first element of resetted box.
-    RowN = BoxRN;
-    ColN = BoxCN;
-    iter = 1;
 }
 
 

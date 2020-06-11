@@ -25,11 +25,17 @@ To generate the puzzle initially i used the brute force box method approach. Whe
 
 `main.cpp` -> The main file that contains all the objects and function calls that run's the game.
 
+
+
 *Still under development*
 
-**A Work in progress**
+**A Work in progress {current updates}**
 This repository is a work in progress for a text based game of sudoku.
 
 1. Used OOPS principles in the implementation of the game.
 2. Box fill technique {falied due to unsatisfied constraints of the puzzle}
 3. Backtracking algorithm to generate a solution.
+4. Puzzle solver implemented using backtracking algorithm.
+
+## Reference 
+McGuire, Gary & Tugemann, Bastian & Civario, Gilles. (2012). There Is No 16-Clue Sudoku: Solving the Sudoku Minimum Number of Clues Problem via Hitting Set Enumeration. Experimental Mathematics. 23. 10.1080/10586458.2013.870056. 
