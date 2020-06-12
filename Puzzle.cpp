@@ -2,8 +2,9 @@
 
 #include <iostream>
 #include "Puzzle.h"
+// The header for computer time {ctime}, used for generating seeds for random numbers.
 #include <ctime>
-// <iomanip> is for the manipulator using "setw" for adding width{formating purpose}
+// <iomanip> is for the manipulator for formating purpose {setw}
 #include <iomanip>
 //#include <algorithm>
 
@@ -155,7 +156,7 @@ bool RowColBoxCheck(int RN, int CN, int number, std::vector<std::vector<int>> Ma
 }
 
 
-
+// Randomly fills the grid box of puzzle, required argument, box's staring row and colum numbers.
 void puzzleBoxFill(std::vector<std::vector <int>> &Matrix,int Row, int Col){
     for (int i=Row; i<Row+3; i++){
         for (int j=Col; j<Col+3; j++){
@@ -171,6 +172,7 @@ void puzzleBoxFill(std::vector<std::vector <int>> &Matrix,int Row, int Col){
 
 void Puzzle::GeneratePuzzle(std::vector<std::vector<int>> &Matrix){
     puzzleBoxFill(Matrix,0,0);
+    SolveSudoku(Matrix);
 }
 
 

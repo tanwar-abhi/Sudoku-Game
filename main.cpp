@@ -16,12 +16,10 @@ int main(){
 
     Sudoku.Welcome(PuzzleMatrix);
     Sudoku.Print2dVec(PuzzleMatrix);
-    
 
     
     if (Sudoku.SolveSudoku(PuzzleMatrix)){
         Sudoku.Print2dVec(PuzzleMatrix);
-        //Su1.InitialGrid(PuzzleMatrix);
     }
     else{
         std::cout<<"Solution could not be obtained, check your problem.\nNot enough clues were given to solve the puzzle."<<std::endl;
