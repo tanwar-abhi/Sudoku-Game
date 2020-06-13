@@ -4,6 +4,7 @@
 
 GameOver::GameOver(){
     //Default Constructor
+    
 }
 
 GameOver::~GameOver(){
@@ -23,3 +24,7 @@ bool isGridFull(std::vector<std::vector <int>> Matrix){
     return true;
 }
 
+bool GameOver::GameEnd(std::vector<std::vector<int>> Matrix){
+    
+
+}

@@ -10,7 +10,7 @@ class Puzzle{
     Puzzle();
     ~Puzzle();
 
-    void Welcome(std::vector<std::vector<int>> &vec2DD);
+    int Welcome();
     void PlayDemo();
     void Print2dVec(std::vector<std::vector<int>> Vec);
 

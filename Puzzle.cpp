@@ -8,22 +8,19 @@
 #include <iomanip>
 //#include <algorithm>
 
-// Global vector to track the possible elements in a row.
-std::vector<int> ElementTracker;
 
 
-//Default emplty constructor
+//Default empty constructor
 Puzzle::Puzzle(){
-    // Defalut constructor
-    
+    // Defalut constructor  
 }
 
 Puzzle::~Puzzle(){
     //Default Destructor
 }
 
-void Puzzle::Welcome(std::vector<std::vector<int>> &Vector2D){
-    //Generated random seed for random number creation.
+int Puzzle::Welcome(){
+    //Generate random seeds for random number creation.
     srand(time(NULL));
 
     std::cout<<"\n############################################################\n";
@@ -38,15 +35,7 @@ void Puzzle::Welcome(std::vector<std::vector<int>> &Vector2D){
             <<std::endl;
     int x;
     std::cin >> x;
-    switch (x){
-    case 1:
-        Puzzle::PlayDemo();
-        break;
-    case 3:
-        UserPuzzle(Vector2D);
-    default:
-        break;
-    }
+    return x;
 }
 
 void Puzzle::PlayDemo(){
@@ -54,9 +43,9 @@ void Puzzle::PlayDemo(){
               << std::endl;
     std::cout << "General View of all elements of grid are as follows :\n"
               << std::endl;
-    for (int i = 0; i < 9; i++){
-        for (int j = 0; j < 9; j++){
-            if (j == 8){
+    for (int i = 1; i < 10; i++){
+        for (int j = 1; j < 10; j++){
+            if (j == 9){
                 std::cout << i << j << std::endl;
             }
             else{
@@ -72,7 +61,7 @@ void Puzzle::PlayDemo(){
 void Puzzle::Print2dVec(std::vector<std::vector<int>> Matrix){
     int m = Matrix.size();
     int n = Matrix[1].size();
-    std::cout << "The matrix is as follows :: " << std::endl;
+    //std::cout << "The matrix is as follows :: " << std::endl;
     for (int i = 0; i < m; i++){
         for (int j = 0; j < n; j++){
             if (j == n - 1){
@@ -83,6 +72,7 @@ void Puzzle::Print2dVec(std::vector<std::vector<int>> Matrix){
             }
         }
     }
+    std::cout << std::endl;
 }
 
 

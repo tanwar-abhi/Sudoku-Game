@@ -1,15 +1,7 @@
 # Sudoku, puzzle Game
 
 This repository contains the implementation of a text based {without GUI} game of sudoku, which I coded in c++.
-It is the result of my personal interest in c++ and sudoku both.
-To generate the puzzle initially i used the brute force box method approach. Wherein I filled all the diagonal boxes of the puzzle first, i.e. right diagonal first then left diagonal and then finally all the remaining elements as per the condition of Sudoku.
-
-* The brute force method of Box filling a Sudoku grid with random numbers failed due to unoptimized constraints (as observed here, mathematical optimization)  from implementing the brute force random method.
-
-*  Thus, to improve the implementation and satify the constraint optimization, I implement the optimized backtracking algorithm.
-
-* Backtracking allows us to retrace our steps and make changes in cells as per the requirement in order to maintain constraints of a Sudoku Board.
-
+It is the result of my personal interest in c++, sudoku and mathematical optimization.
 
 `Grid.h` -> Header file for the Grid class, containing all the definitions of the variables and member fucntions of the class.
 
@@ -25,7 +17,14 @@ To generate the puzzle initially i used the brute force box method approach. Whe
 
 `main.cpp` -> The main file that contains all the objects and function calls that run's the game.
 
+## Some observations and lessons learned.
+To generate the puzzle initially i used a naive brute force box method approach. Wherein I filled all the diagonal boxes of the puzzle first, i.e. right diagonal first then left diagonal and then finally all the remaining elements as per the condition of Sudoku.
 
+* The brute force method of Box filling a Sudoku grid with random numbers failed due to unoptimized constraints (as observed here, mathematical optimization) from implementing the brute force random method.
+
+* Thus, to improve the implementation and satisfy the constraint optimization, I implement the optimized backtracking algorithm.
+
+* Backtracking allows us to retrace our steps and make changes in cells as per the requirement in order to satisfy all constraints of a Sudoku Board.
 
 *Still under development*
 
@@ -33,9 +32,17 @@ To generate the puzzle initially i used the brute force box method approach. Whe
 This repository is a work in progress for a text based game of sudoku.
 
 1. Used OOPS principles in the implementation of the game.
-2. Box fill technique {falied due to unsatisfied constraints of the puzzle}
+2. Box fill technique {failed due to unsatisfied constraints of the puzzle}
 3. Backtracking algorithm to generate a solution.
 4. Puzzle solver implemented using backtracking algorithm.
+{In future maybe I will create a GUI and an app based on this solver code so that it can be run on multiple platforms, for fun}
+
+## How to Compile and Run
+This games was cooded in Linux, using the open source **g++ *version=5.4.0 20160609*** compiler and currently can only run on Linux terminal. Revision *C++17* of the ISO/IEC 14882 standard for the C++ programming language was used for build.
+
+1. To run this game simply fork or clone/download this repository.
+2. Go to the folder containing all the files and type *make*.
+3. Start game by simple running `RunSudoku`{*./RunSudoku*}.
 
 ## Reference 
 McGuire, Gary & Tugemann, Bastian & Civario, Gilles. (2012). There Is No 16-Clue Sudoku: Solving the Sudoku Minimum Number of Clues Problem via Hitting Set Enumeration. Experimental Mathematics. 23. 10.1080/10586458.2013.870056. 

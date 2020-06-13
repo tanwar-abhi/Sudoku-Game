@@ -13,17 +13,39 @@ int main(){
 
     Puzzle Sudoku;
     Grid Su1;
+    int playSelect;
+    playSelect = Sudoku.Welcome();
+    //Sudoku.Print2dVec(PuzzleMatrix);
 
-    Sudoku.Welcome(PuzzleMatrix);
-    Sudoku.Print2dVec(PuzzleMatrix);
+    try{
+        if (playSelect!=1 && playSelect!=2 && playSelect!=3){
+            throw "Game aborted!! Run the game again ";
+        }
+    }
+    catch (const char* text){
+        std::cout<<"You made an invalid choice. Please make appropriate choice"<<std::endl;
+        std::cout<<text<<std::endl;
+    }
 
+    switch (playSelect){
+        case 1:
+            Sudoku.PlayDemo();
+            break;
+        case 3:
+            Sudoku.UserPuzzle(PuzzleMatrix);
+            std::cout<<"The puzzle grid you enter is = \n";
+            Sudoku.Print2dVec(PuzzleMatrix);
+               if (Sudoku.SolveSudoku(PuzzleMatrix)){
+                   Sudoku.Print2dVec(PuzzleMatrix);
+                }
+                else{
+                    std::cout<<"Solution could not be obtained, check your problem.\nNot enough clues were given to solve the puzzle."<<std::endl;
+                }
+        default:
+            break;
+    }
     
-    if (Sudoku.SolveSudoku(PuzzleMatrix)){
-        Sudoku.Print2dVec(PuzzleMatrix);
-    }
-    else{
-        std::cout<<"Solution could not be obtained, check your problem.\nNot enough clues were given to solve the puzzle."<<std::endl;
-    }
+ 
     
     /*
     Sudoku.GeneratePuzzle(PuzzleMatrix);
