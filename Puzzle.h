@@ -3,8 +3,9 @@
 
 #pragma once
 #include <vector>
+#include "GameOver.h"
 
-class Puzzle{    
+class Puzzle{
 
     public:
     Puzzle();
@@ -14,7 +15,7 @@ class Puzzle{
     void PlayDemo();
     void Print2dVec(std::vector<std::vector<int>> Vec);
 
-    void GeneratePuzzle(std::vector<std::vector<int>> &VecDD);
+    void GeneratePuzzle(std::vector<std::vector<int>> &VecDD, GameOver &StatObject);
 
     void UserPuzzle(std::vector<std::vector<int>> &vect2D);
 

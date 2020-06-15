@@ -10,6 +10,7 @@
 
 
 
+
 //Default empty constructor
 Puzzle::Puzzle(){
     // Defalut constructor  
@@ -29,7 +30,7 @@ int Puzzle::Welcome(){
     std::cout<<"#"<<std::setw(59)<<"#"<<std::endl;
     std::cout << "############################################################\n"<<std::endl;
 
-    std::cout<<"Press 1 for Instructions on playing"
+    std::cout<<"Press 1 for Instructions on how to play."
             <<"\nPress 2 to randomly generate puzzle and start playing"
             <<"\nPress 3 to enter a user defined puzzle which will be solved by the solver"
             <<std::endl;
@@ -39,6 +40,12 @@ int Puzzle::Welcome(){
 }
 
 void Puzzle::PlayDemo(){
+    std::cout<<"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n";
+    std::cout<<std::setw(50)<<"Rules of Sudoku\n";
+    std::cout<<"The classic Sudoku game involves a grid of 81 cells.\n"
+             <<"Each row, column and square (9 spaces each) needs to be filled out with the numbers 1-9,"
+             <<"\nwithout repeating any numbers within the row, column or square (box of 3x3).\n";
+    std::cout<<"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n";
     std::cout << "\nThe Grid is a 2D matrix of (9x9), i.e. 9 rows and 9 columns\n"
               << std::endl;
     std::cout << "General View of all elements of grid are as follows :\n"
@@ -53,7 +60,7 @@ void Puzzle::PlayDemo(){
             }
         }
     }
-    std::cout << "\nSo to play enter the postion of each element first (m,n) then, value to be added in puzzle.";
+    std::cout << "\nSo to play enter the postion of each element first (m,n) then, value to be added in puzzle.\n";
     std::cout << "For Example :: to enter value 5 at 3rd row, 4th column write '3 4 5'{should be space seperated}\n"
               << std::endl;
 }
@@ -75,21 +82,6 @@ void Puzzle::Print2dVec(std::vector<std::vector<int>> Matrix){
     std::cout << std::endl;
 }
 
-
-// This function checks whether the grid is solved or not.
-// It acts as the termination condition for recursive backtraking solve algorithm.
-bool isGridSolved(std::vector<std::vector <int>> Matrix){
-    int m = Matrix.size();
-    int n = Matrix[0].size();
-    for (int i=0; i<m; i++){
-        for (int j=0; j<n; j++){
-            if (Matrix[i][j] == 0){
-                return false;
-            }
-        }
-    }
-    return true;
-}
 
 
 
@@ -160,9 +152,30 @@ void puzzleBoxFill(std::vector<std::vector <int>> &Matrix,int Row, int Col){
 }
 
 
-void Puzzle::GeneratePuzzle(std::vector<std::vector<int>> &Matrix){
+void Puzzle::GeneratePuzzle(std::vector<std::vector<int>> &Matrix, GameOver &check){
+    
+    //Randomly fill 3x3 first box to initialize the puzzle so that each generated puzzle is different.
     puzzleBoxFill(Matrix,0,0);
-    SolveSudoku(Matrix);
+    if (SolveSudoku(Matrix)){
+        check.SetSolution(Matrix);
+    }
+    else{
+        std::cout<<"Puzzle Generation failed!!!!!"<<std::endl;
+    }
+    
+    int i,j,clues = 40;
+    // Randomly remove elements from Puzzle and check if the puzzle is solvable
+    // Removes elements till defined clues are remaining in the puzzle.
+    // rand()%number will generate random number in range [0,8].
+    for (int x=0; x<81-clues; x++){
+        i = rand()%9;
+        j = rand()%9;
+        while (Matrix[i][j] == 0){
+            i = rand()%9;
+            j = rand()%9;
+        }
+        Matrix[i][j] = 0;
+    }
 }
 
 
@@ -179,6 +192,8 @@ void Puzzle::UserPuzzle(std::vector<std::vector<int>> &Matrix){
             Matrix[i][j] = digit;
         }
     }
+
+    
     Initially for checking lets enter a puzzle whose solution we already know.
     */
    Matrix = {{0,0,0,0,5,0,0,4,0},
@@ -190,6 +205,7 @@ void Puzzle::UserPuzzle(std::vector<std::vector<int>> &Matrix){
             {3,0,0,0,0,9,0,1,2},
             {8,7,2,3,1,6,4,0,0},
             {0,1,0,0,7,0,0,0,0}};
+    
 }
 
 
@@ -205,10 +221,6 @@ bool Puzzle::SolveSudoku(std::vector<std::vector<int>> &Matrix){
                     if (!RowColBoxCheck(i,j,value,Matrix)){
                         //ElementTracker.push_back(value);
                         Matrix[i][j] = value;
-            
-                        if (isGridSolved(Matrix)){
-                            return true; 
-                        }
                     
                         if (SolveSudoku(Matrix)){
                             return true;
@@ -265,5 +277,17 @@ bool BinarySearch(std::vector<int> vec1D, int value){
 }
 
 
+bool isGridSolved(std::vector<std::vector <int>> Matrix){
+    int m = Matrix.size();
+    int n = Matrix[0].size();
+    for (int i=0; i<m; i++){
+        for (int j=0; j<n; j++){
+            if (Matrix[i][j] == 0){
+                return false;
+            }
+        }
+    }
+    return true;
+}
 
 */

@@ -4,6 +4,7 @@
 #include <vector>
 #include "Grid.h"
 #include "Puzzle.h"
+#include "GameOver.h"
 
 int main(){
 
@@ -13,6 +14,8 @@ int main(){
 
     Puzzle Sudoku;
     Grid Su1;
+    GameOver Status;
+
     int playSelect;
     playSelect = Sudoku.Welcome();
     //Sudoku.Print2dVec(PuzzleMatrix);
@@ -23,29 +26,41 @@ int main(){
         }
     }
     catch (const char* text){
-        std::cout<<"You made an invalid choice. Please make appropriate choice"<<std::endl;
+        std::cout<<"You made an invalid choice. Please make an appropriate choice"<<std::endl;
         std::cout<<text<<std::endl;
     }
 
     switch (playSelect){
         case 1:
             Sudoku.PlayDemo();
+
+        case 2:
+            // Generates Random puzzle and saves the solution in Status for future reference.
+            Sudoku.GeneratePuzzle(PuzzleMatrix, Status);
+            std::cout<<"Puzzle Generated = "<<std::endl;
+            Sudoku.Print2dVec(PuzzleMatrix);
+
+            //Status.PrintSolution();
+            //goto play;
             break;
+
         case 3:
             Sudoku.UserPuzzle(PuzzleMatrix);
-            std::cout<<"The puzzle grid you enter is = \n";
+            std::cout<<"\nThe puzzle grid you enter is = \n";
             Sudoku.Print2dVec(PuzzleMatrix);
-               if (Sudoku.SolveSudoku(PuzzleMatrix)){
-                   Sudoku.Print2dVec(PuzzleMatrix);
-                }
-                else{
-                    std::cout<<"Solution could not be obtained, check your problem.\nNot enough clues were given to solve the puzzle."<<std::endl;
-                }
+            if (Sudoku.SolveSudoku(PuzzleMatrix)){
+                std::cout<<"The solution is = "<<std::endl;
+                Sudoku.Print2dVec(PuzzleMatrix);
+            }
+            else{
+                std::cout<<"Solution could not be obtained, check your problem."
+                <<"\nNot enough clues were given to solve the puzzle."
+                <<std::endl;
+            }
+
         default:
             break;
     }
-    
- 
     
     /*
     Sudoku.GeneratePuzzle(PuzzleMatrix);
@@ -57,6 +72,10 @@ int main(){
     Sudoku.UserPuzzle(PuzzleMatrix);
     Sudoku.Print2dVec(PuzzleMatrix);
     */
+    play:
+        
+
+
     
    
     return 0;
