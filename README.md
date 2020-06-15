@@ -33,10 +33,7 @@ To generate the puzzle initially i used a naive brute force box method approach.
 **A Work in progress {current updates}**
 This repository is a work in progress for a text based game of sudoku.
 
-1. Used OOPS principles in the implementation of the game.
-2. Box fill technique {failed due to unsatisfied constraints of the puzzle}
-3. Backtracking algorithm to generate a solution.
-4. Puzzle solver implemented using backtracking algorithm.
+* Puzzle solver implemented using backtracking algorithm.
 {In future, maybe I will create a GUI and an app based on this solver code so that it can be run on multiple platforms, for fun}
 
 ## How to Compile and Run
