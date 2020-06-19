@@ -21,6 +21,8 @@ class Puzzle{
 
     bool SolveSudoku(std::vector<std::vector<int>> &vector2D);
 
+    void ResponseNumber(std::vector<std::vector<int>> &Vector2D, unsigned int UserArray[]);
+
     //bool isGridFull(std::vector<std::vector <int>> VecR2D);
 
 };

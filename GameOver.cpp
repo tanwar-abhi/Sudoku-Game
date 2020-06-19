@@ -5,6 +5,7 @@
 
 GameOver::GameOver(){
     //Default Constructor
+    GameStatus = "Play";
 }
 
 GameOver::~GameOver(){
@@ -14,7 +15,7 @@ GameOver::~GameOver(){
 // This function checks whether the grid is solved or not.
 bool isGridFull(std::vector<std::vector <int>> Matrix){
     int m = Matrix.size();
-    int n = Matrix[1].size();
+    int n = Matrix[0].size();
     for (int i=0; i<m; i++){
         for (int j=0; j<n; j++){
             if (Matrix[i][j] == 0){
@@ -29,8 +30,10 @@ void GameOver::SetSolution(std::vector<std::vector<int>> Matrix){
     Solution = Matrix;
 }
 
-bool GameOver::GameEnd(std::vector<std::vector<int>> Matrix){
-
+bool GameOver::GameEnd(){
+    std::cout<<"If you are done with puzzle type 'end'\n"
+             <<"Otherwise type 'play' to keep playing"<<std::endl;
+    std::cin>>GameStatus;
 
 }
 

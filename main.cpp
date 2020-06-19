@@ -28,6 +28,7 @@ int main(){
     catch (const char* text){
         std::cout<<"You made an invalid choice. Please make an appropriate choice"<<std::endl;
         std::cout<<text<<std::endl;
+        return 0;
     }
 
     switch (playSelect){
@@ -39,14 +40,12 @@ int main(){
             Sudoku.GeneratePuzzle(PuzzleMatrix, Status);
             std::cout<<"Puzzle Generated = "<<std::endl;
             Sudoku.Print2dVec(PuzzleMatrix);
-
-            //Status.PrintSolution();
-            //goto play;
+            goto play;
             break;
 
         case 3:
             Sudoku.UserPuzzle(PuzzleMatrix);
-            std::cout<<"\nThe puzzle grid you enter is = \n";
+            std::cout<<"\nThe puzzle you entered is = \n";
             Sudoku.Print2dVec(PuzzleMatrix);
             if (Sudoku.SolveSudoku(PuzzleMatrix)){
                 std::cout<<"The solution is = "<<std::endl;
@@ -57,25 +56,39 @@ int main(){
                 <<"\nNot enough clues were given to solve the puzzle."
                 <<std::endl;
             }
+            return 0;
 
         default:
             break;
     }
-    
-    /*
-    Sudoku.GeneratePuzzle(PuzzleMatrix);
-    Sudoku.Print2dVec(PuzzleMatrix);
-    
-    Grid Su1;
-    Su1.InitialGrid(PuzzleMatrix);
-    
-    Sudoku.UserPuzzle(PuzzleMatrix);
-    Sudoku.Print2dVec(PuzzleMatrix);
-    */
-    play:
+
+
+   
+   
+    play:{
+        Su1.makeGrid(PuzzleMatrix);
+        std::cout<<"Enter position number, follower by value. i.e. (Row, Column, Digit{1-9})"<<std::endl;
+        unsigned int count=0, playerResponse[3],x;
+        while (std::cin>>x){
+            playerResponse[count] = x;
+            if (count==2){
+                Sudoku.ResponseNumber(PuzzleMatrix, playerResponse);
+                count = 0;
+            }
+            else{
+                count++;
+            }
+        }
+        /*std::cout<<x<<std::endl;
+        std::cout<<"The puzzle current form = \n";
+        Sudoku.Print2dVec(PuzzleMatrix);*/
+        std::cout<<"Solution you entered = \n";
+        Su1.makeGrid(PuzzleMatrix);
+        Status.GameEnd();
         
-
-
+    }
+    
+    
     
    
     return 0;

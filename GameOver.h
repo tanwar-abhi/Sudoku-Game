@@ -2,17 +2,21 @@
 
 #pragma once
 #include <vector>
+#include <string>
 
 // GameOver taking public Inherritance from Puzzle class
 class GameOver {
     private:
     std::vector<std::vector<int>> Solution;
+    std::string GameStatus;
+    
 
     public:
     GameOver();
     ~GameOver();
-    bool GameEnd(std::vector<std::vector<int>> Vec2D);
+    bool GameEnd();
     void SetSolution(std::vector<std::vector<int>> Vector2D);
     void PrintSolution();
+    
 };
 

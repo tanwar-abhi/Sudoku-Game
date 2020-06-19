@@ -14,12 +14,13 @@ Grid::~Grid(){
     //Default Destructor
 }
 
+/*
 void Grid::makeGrid(std::vector<std::vector <int>> &Ans){
-    std::cout<<"Initial grid for Sudoku is as follows :: "<<std::endl;
+    std::cout<<std::endl;
     //Matrix is of size (m,n); "m" rows and "n" columns
     int m = Ans.size();
-    int n = Ans[0].size();
     for (int i=0; i<m; i++){
+        int n = Ans[i].size();
         for (int j=0; j<n; j++){
             if ( j==n-1){
                 std::cout<<Ans[i][j]<<" | "<<std::endl;
@@ -34,15 +35,15 @@ void Grid::makeGrid(std::vector<std::vector <int>> &Ans){
         }
     }
 }
+*/
 
 
-
-void Grid::InitialGrid(std::vector<std::vector <int>> Ans){
+void Grid::makeGrid(std::vector<std::vector <int>> Ans){
     std::cout<<"Initial grid for Sudoku is as follows :: "<<std::endl;
     //Matrix is of size (m,n); "m" rows and "n" columns
     int m = Ans.size();
-    int n = Ans[0].size();
     for (int i=0; i<m; i++){
+        int n = Ans[i].size();
         if (i==0 ){
             std::cout<<"|-----------|-----------|-----------|"<<std::endl;
         }

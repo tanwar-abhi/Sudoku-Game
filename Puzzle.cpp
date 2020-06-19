@@ -67,9 +67,9 @@ void Puzzle::PlayDemo(){
 
 void Puzzle::Print2dVec(std::vector<std::vector<int>> Matrix){
     int m = Matrix.size();
-    int n = Matrix[1].size();
     //std::cout << "The matrix is as follows :: " << std::endl;
     for (int i = 0; i < m; i++){
+        int n = Matrix[i].size();
         for (int j = 0; j < n; j++){
             if (j == n - 1){
                 std::cout << Matrix[i][j] << std::endl;
@@ -163,11 +163,10 @@ void Puzzle::GeneratePuzzle(std::vector<std::vector<int>> &Matrix, GameOver &che
         std::cout<<"Puzzle Generation failed!!!!!"<<std::endl;
     }
     
-    int i,j,clues = 40;
-    // Randomly remove elements from Puzzle and check if the puzzle is solvable
-    // Removes elements till defined clues are remaining in the puzzle.
-    // rand()%number will generate random number in range [0,8].
+    unsigned int i,j,clues = 40;
+    // Randomly removes elements till defined clues are remaining in the puzzle.
     for (int x=0; x<81-clues; x++){
+        // rand()%number will generate random number in range [0,number-1].
         i = rand()%9;
         j = rand()%9;
         while (Matrix[i][j] == 0){
@@ -237,6 +236,19 @@ bool Puzzle::SolveSudoku(std::vector<std::vector<int>> &Matrix){
 }
 
 
+
+void Puzzle::ResponseNumber(std::vector<std::vector<int>> &Matrix, unsigned int array[]){
+    //Setting user responses to allign with index of Puzzle Matrix.
+    for (int i=0; i<2; i++){
+        array[i] -= 1;
+    }
+    if (Matrix[array[0]][array[1]] == 0){
+        Matrix[array[0]][array[1]] = array[2];
+    }
+    else{
+        std::cout<<"This is a clue and can't be changed by player."<<std::endl;
+    }
+}
 
 
 /*
