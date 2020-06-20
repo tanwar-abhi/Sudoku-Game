@@ -7,18 +7,17 @@
 #include "GameOver.h"
 
 int main(){
-
-    int m=9, n=9;
-    //2D vector that contains the Grid elements.
-    std::vector<std::vector<int>> PuzzleMatrix(m, std::vector<int> (n));
+    
+    //std::vector<std::vector<int>> PuzzleMatrix(m, std::vector<int> (n));
+    //2D vector that contains the Grid elements (9x9).
+    std::vector<std::vector<int>> PuzzleMatrix(9, std::vector<int> (9));
 
     Puzzle Sudoku;
     Grid Su1;
-    GameOver Status;
+    GameOver State;
 
     int playSelect;
     playSelect = Sudoku.Welcome();
-    //Sudoku.Print2dVec(PuzzleMatrix);
 
     try{
         if (playSelect!=1 && playSelect!=2 && playSelect!=3){
@@ -37,7 +36,7 @@ int main(){
 
         case 2:
             // Generates Random puzzle and saves the solution in Status for future reference.
-            Sudoku.GeneratePuzzle(PuzzleMatrix, Status);
+            Sudoku.GeneratePuzzle(PuzzleMatrix, State);
             std::cout<<"Puzzle Generated = "<<std::endl;
             Sudoku.Print2dVec(PuzzleMatrix);
             goto play;
@@ -67,29 +66,33 @@ int main(){
    
     play:{
         Su1.makeGrid(PuzzleMatrix);
-        std::cout<<"Enter position number, follower by value. i.e. (Row, Column, Digit{1-9})"<<std::endl;
+        std::cout<<"Enter position number, follower by value. i.e. (Row, Column, Digit{1-9})"
+                 <<"\nOnce completed puzzle or if you wish to exit enter any non integer value."
+                 <<std::endl;
         unsigned int count=0, playerResponse[3],x;
         while (std::cin>>x){
             playerResponse[count] = x;
             if (count==2){
-                Sudoku.ResponseNumber(PuzzleMatrix, playerResponse);
+                Sudoku.AddResponse(PuzzleMatrix, playerResponse);
                 count = 0;
+                Sudoku.Print2dVec(PuzzleMatrix);
             }
             else{
                 count++;
             }
         }
-        /*std::cout<<x<<std::endl;
-        std::cout<<"The puzzle current form = \n";
-        Sudoku.Print2dVec(PuzzleMatrix);*/
+  
         std::cout<<"Solution you entered = \n";
-        Su1.makeGrid(PuzzleMatrix);
-        Status.GameEnd();
+        Sudoku.Print2dVec(PuzzleMatrix);
+        //Su1.makeGrid(PuzzleMatrix);
+        
+        /*Problem below
+        State.GameStatus =  State.GameEnd(PuzzleMatrix);
+        std::cout<<State.GameStatus<<std::endl;
+        */
         
     }
     
     
-    
-   
     return 0;
 }

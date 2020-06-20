@@ -39,7 +39,6 @@ void Grid::makeGrid(std::vector<std::vector <int>> &Ans){
 
 
 void Grid::makeGrid(std::vector<std::vector <int>> Ans){
-    std::cout<<"Initial grid for Sudoku is as follows :: "<<std::endl;
     //Matrix is of size (m,n); "m" rows and "n" columns
     int m = Ans.size();
     for (int i=0; i<m; i++){

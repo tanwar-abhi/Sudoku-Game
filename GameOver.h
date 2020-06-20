@@ -8,13 +8,14 @@
 class GameOver {
     private:
     std::vector<std::vector<int>> Solution;
-    std::string GameStatus;
     
-
     public:
+    std::string GameStatus;
+
     GameOver();
     ~GameOver();
-    bool GameEnd();
+
+    std::string GameEnd(std::vector<std::vector<int>> Vector2D);
     void SetSolution(std::vector<std::vector<int>> Vector2D);
     void PrintSolution();
     

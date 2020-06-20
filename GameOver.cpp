@@ -5,7 +5,6 @@
 
 GameOver::GameOver(){
     //Default Constructor
-    GameStatus = "Play";
 }
 
 GameOver::~GameOver(){
@@ -30,12 +29,24 @@ void GameOver::SetSolution(std::vector<std::vector<int>> Matrix){
     Solution = Matrix;
 }
 
-bool GameOver::GameEnd(){
+std::string GameOver::GameEnd(std::vector<std::vector<int>> GameVector){
     std::cout<<"If you are done with puzzle type 'end'\n"
              <<"Otherwise type 'play' to keep playing"<<std::endl;
-    std::cin>>GameStatus;
+    
+    std::string GState;
+    std::cin>>GState;
 
+    if (GState == "end"){
+        if (GameVector == Solution){
+            GState = "Solved";
+        }
+        else{
+            GState = "WSolution";
+        }
+    }
+    return GState;
 }
+
 
 void GameOver::PrintSolution(){
     std::cout<<"The solution to puzzle is = \n";

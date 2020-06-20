@@ -4,14 +4,10 @@
 #include "Puzzle.h"
 // The header for computer time {ctime}, used for generating seeds for random numbers.
 #include <ctime>
-// <iomanip> is for the manipulator for formating purpose {setw}
+// <iomanip> is for the I/O manipulator for formating purpose {setw}
 #include <iomanip>
-//#include <algorithm>
 
 
-
-
-//Default empty constructor
 Puzzle::Puzzle(){
     // Defalut constructor  
 }
@@ -84,7 +80,6 @@ void Puzzle::Print2dVec(std::vector<std::vector<int>> Matrix){
 
 
 
-
 // Simply checks whether value is present in the vector or not. Called from RowColBoxCheck
 bool Condition(std::vector<int> vec1D, int value){
     for (auto i = vec1D.begin(); i != vec1D.end(); i++){
@@ -98,7 +93,7 @@ bool Condition(std::vector<int> vec1D, int value){
 
 // This function checks the constraint condition that must always be satisfied to fill the value
 // in puzzle grid, i.e value should not already be present in row, colum or box
-// This function returns "True" if number is present in either Row,Column or box. Otherwise returns "false".
+// This returns "True" if number is present in either Row,Column or box. Otherwise returns "false".
 bool RowColBoxCheck(int RN, int CN, int number, std::vector<std::vector<int>> Matrix){
     int m = Matrix.size();
     int n = Matrix[1].size();
@@ -113,8 +108,6 @@ bool RowColBoxCheck(int RN, int CN, int number, std::vector<std::vector<int>> Ma
     result[1] = Condition(ColumnVector, number);
 
     // Row number and column nunber for the first element of the box matrix.
-    int count = 0;
-    
     int bRN = (RN/3)*3;
     int bCN = (CN/3)*3;
     for (int k = bRN; k < bRN + 3; k++){
@@ -123,18 +116,13 @@ bool RowColBoxCheck(int RN, int CN, int number, std::vector<std::vector<int>> Ma
         }
     }
     result[2] = Condition(BoxVector, number);
+
     for (int i = 0; i < 3; i++){
         if (result[i] == true){
-            count++;
+            return true;
         }
     }
-
-    switch (count){
-    case 0:
-        return false;
-    default:
-        return true;
-    }
+    return false;
 }
 
 
@@ -152,12 +140,12 @@ void puzzleBoxFill(std::vector<std::vector <int>> &Matrix,int Row, int Col){
 }
 
 
-void Puzzle::GeneratePuzzle(std::vector<std::vector<int>> &Matrix, GameOver &check){
+void Puzzle::GeneratePuzzle(std::vector<std::vector<int>> &Matrix, GameOver &GameState){
     
     //Randomly fill 3x3 first box to initialize the puzzle so that each generated puzzle is different.
     puzzleBoxFill(Matrix,0,0);
     if (SolveSudoku(Matrix)){
-        check.SetSolution(Matrix);
+        GameState.SetSolution(Matrix);
     }
     else{
         std::cout<<"Puzzle Generation failed!!!!!"<<std::endl;
@@ -173,8 +161,26 @@ void Puzzle::GeneratePuzzle(std::vector<std::vector<int>> &Matrix, GameOver &che
             i = rand()%9;
             j = rand()%9;
         }
-        Matrix[i][j] = 0;
+        Matrix[i][j] = 0; 
     }
+
+
+    for (i=0;i<9;i++){
+        for (j=0; j<9; j++){
+            if (Matrix[i][j] != 0){
+                FixedPosition[i][j] = Matrix[i][j];
+            }
+        }
+    }
+
+    /*
+    for (auto itr = FixedPosition.begin(); itr!=FixedPosition.end(); itr++){
+        for (auto ptr = itr->second.begin(); ptr!=itr->second.end(); ptr++){
+            std::cout<<itr->first<<" "<<ptr->first<<" "<<ptr->second<<",";
+        }
+    }
+    std::cout<<std::endl;
+    */
 }
 
 
@@ -211,9 +217,9 @@ void Puzzle::UserPuzzle(std::vector<std::vector<int>> &Matrix){
 // Recursively calling the SolveSudoku function and empolying backtracking to solve grid.
 bool Puzzle::SolveSudoku(std::vector<std::vector<int>> &Matrix){
     int m = Matrix.size();
-    int n = Matrix[0].size();
 
     for (int i=0; i<m; i++){
+        int n = Matrix[i].size();
         for (int j=0; j<n; j++){
             if (Matrix[i][j] == 0){
                 for (int value = 1; value<10; value++ ){
@@ -237,39 +243,26 @@ bool Puzzle::SolveSudoku(std::vector<std::vector<int>> &Matrix){
 
 
 
-void Puzzle::ResponseNumber(std::vector<std::vector<int>> &Matrix, unsigned int array[]){
+void Puzzle::AddResponse(std::vector<std::vector<int>> &Matrix, unsigned int array[]){
     //Setting user responses to allign with index of Puzzle Matrix.
     for (int i=0; i<2; i++){
         array[i] -= 1;
     }
+
     if (Matrix[array[0]][array[1]] == 0){
         Matrix[array[0]][array[1]] = array[2];
     }
+    else if(Matrix[array[0]][array[1]] != FixedPosition[array[0]][array[1]] ){
+        Matrix[array[0]][array[1]] = array[2];
+    }
     else{
-        std::cout<<"This is a clue and can't be changed by player."<<std::endl;
+        std::cout<<"This is a clue and can't be changed by player."
+                 <<"Select only empty positions to fill."<<std::endl;
     }
 }
 
 
 /*
-
-
-void printMatrix(std::vector<std::vector<int>> Mat){
-    int m = Mat.size();
-    int n = Mat[1].size();
-    std::cout<<"The matrix is :: "<<std::endl;
-    for (int i=0; i<m; i++){
-        for (int j=0; j<n; j++){
-            if (j==n-1){
-                std::cout<<Mat[i][j]<<std::endl;
-            }
-            else{
-                std::cout<<Mat[i][j]<<" ";
-            }
-        }
-    }
-}
-
 
 bool BinarySearch(std::vector<int> vec1D, int value){
     int start = 0, end = vec1D.size()-1;
@@ -289,17 +282,5 @@ bool BinarySearch(std::vector<int> vec1D, int value){
 }
 
 
-bool isGridSolved(std::vector<std::vector <int>> Matrix){
-    int m = Matrix.size();
-    int n = Matrix[0].size();
-    for (int i=0; i<m; i++){
-        for (int j=0; j<n; j++){
-            if (Matrix[i][j] == 0){
-                return false;
-            }
-        }
-    }
-    return true;
-}
 
 */
