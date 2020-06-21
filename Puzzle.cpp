@@ -61,23 +61,6 @@ void Puzzle::PlayDemo(){
               << std::endl;
 }
 
-void Puzzle::Print2dVec(std::vector<std::vector<int>> Matrix){
-    int m = Matrix.size();
-    //std::cout << "The matrix is as follows :: " << std::endl;
-    for (int i = 0; i < m; i++){
-        int n = Matrix[i].size();
-        for (int j = 0; j < n; j++){
-            if (j == n - 1){
-                std::cout << Matrix[i][j] << std::endl;
-            }
-            else{
-                std::cout << Matrix[i][j] << " ";
-            }
-        }
-    }
-    std::cout << std::endl;
-}
-
 
 
 // Simply checks whether value is present in the vector or not. Called from RowColBoxCheck
@@ -163,7 +146,6 @@ void Puzzle::GeneratePuzzle(std::vector<std::vector<int>> &Matrix, GameOver &Gam
         }
         Matrix[i][j] = 0; 
     }
-
 
     for (i=0;i<9;i++){
         for (j=0; j<9; j++){

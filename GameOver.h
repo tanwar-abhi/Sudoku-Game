@@ -10,7 +10,7 @@ class GameOver {
     std::vector<std::vector<int>> Solution;
     
     public:
-    std::string GameStatus;
+    std::string CurrentState;
 
     GameOver();
     ~GameOver();

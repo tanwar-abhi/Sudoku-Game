@@ -9,33 +9,26 @@ Grid::Grid(){
     //Defalut Constructor
 }
 
-
 Grid::~Grid(){
     //Default Destructor
 }
 
-/*
-void Grid::makeGrid(std::vector<std::vector <int>> &Ans){
-    std::cout<<std::endl;
-    //Matrix is of size (m,n); "m" rows and "n" columns
-    int m = Ans.size();
-    for (int i=0; i<m; i++){
-        int n = Ans[i].size();
-        for (int j=0; j<n; j++){
-            if ( j==n-1){
-                std::cout<<Ans[i][j]<<" | "<<std::endl;
-                std::cout<<"|---|---|---|---|---|---|---|---|---|"<<std::endl;
-            }
-            else if(j==0){
-                std::cout<<"| "<<Ans[i][j]<<" | ";
+
+void Grid::Print2dVec(std::vector<std::vector<int>> Matrix){
+    int m = Matrix.size();
+    for (int i = 0; i < m; i++){
+        int n = Matrix[i].size();
+        for (int j = 0; j < n; j++){
+            if (j == n - 1){
+                std::cout << Matrix[i][j] << std::endl;
             }
             else{
-                std::cout<<Ans[i][j]<<" | ";
+                std::cout << Matrix[i][j] << " ";
             }
         }
     }
+    std::cout << std::endl;
 }
-*/
 
 
 void Grid::makeGrid(std::vector<std::vector <int>> Ans){
@@ -71,5 +64,6 @@ void Grid::makeGrid(std::vector<std::vector <int>> Ans){
             std::cout<<"|---:---:---|---:---:---|---:---:---|"<<std::endl;
         }
     }
+    std::cout<<std::endl;
 }
 

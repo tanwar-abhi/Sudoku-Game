@@ -33,6 +33,7 @@ std::string GameOver::GameEnd(std::vector<std::vector<int>> GameVector){
     std::cout<<"If you are done with puzzle type 'end'\n"
              <<"Otherwise type 'play' to keep playing"<<std::endl;
     
+    std::cin.ignore();
     std::string GState;
     std::cin>>GState;
 

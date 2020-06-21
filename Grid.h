@@ -10,12 +10,11 @@ class Grid{
     //Defalut constructor and destructor
     Grid();
     ~Grid();
-    int a, b;
 
+    void Print2dVec(std::vector<std::vector<int>> Vec);
     void makeGrid(std::vector<std::vector<int>> matrix);
     void updateGrid();
 
     //void InitialGrid(std::vector<std::vector<int>> aMatrix);
-    //void Print2dVec(std::vector<std::vector<int>> &aMat);
 
 };

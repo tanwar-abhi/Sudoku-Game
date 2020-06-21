@@ -2,7 +2,6 @@
 // Puzzle is a 2D vector (i.e) matrix of size (m*n)
 
 #pragma once
-//#include <vector>
 #include "GameOver.h"
 #include <map>
 
@@ -19,7 +18,6 @@ class Puzzle{
 
     int Welcome();
     void PlayDemo();
-    void Print2dVec(std::vector<std::vector<int>> Vec);
 
     void GeneratePuzzle(std::vector<std::vector<int>> &VecDD, GameOver &StateObject);
 
@@ -29,6 +27,5 @@ class Puzzle{
 
     void AddResponse(std::vector<std::vector<int>> &Vector2D, unsigned int UserArray[]);
 
-    //bool isGridFull(std::vector<std::vector <int>> VecR2D);
 
 };
