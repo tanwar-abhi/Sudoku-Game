@@ -1,14 +1,12 @@
 // This is the main implementation file for the execution of suDokU
 
 #include <iostream>
-#include <vector>
 #include "Grid.h"
 #include "Puzzle.h"
 #include "GameOver.h"
 
 int main(){
     
-    //std::vector<std::vector<int>> PuzzleMatrix(m, std::vector<int> (n));
     //2D vector that contains the Grid elements (9x9).
     std::vector<std::vector<int>> PuzzleMatrix(9, std::vector<int> (9));
 
@@ -82,13 +80,14 @@ int main(){
                 count++;
             }
         }
-  
+
+        std::cin.ignore();
         std::cout<<"Solution you entered = \n";
         SuPuzzle.Print2dVec(PuzzleMatrix);
         //SuPuzzle.makeGrid(PuzzleMatrix);
         
         /*Problem below*/
-        State.CurrentState =  State.GameEnd(PuzzleMatrix);
+        State.GameEnd(PuzzleMatrix);
         std::cout<<State.CurrentState<<std::endl;
         
         

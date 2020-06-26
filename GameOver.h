@@ -15,7 +15,7 @@ class GameOver {
     GameOver();
     ~GameOver();
 
-    std::string GameEnd(std::vector<std::vector<int>> Vector2D);
+    void GameEnd(std::vector<std::vector<int>> Vector2D);
     void SetSolution(std::vector<std::vector<int>> Vector2D);
     void PrintSolution();
     

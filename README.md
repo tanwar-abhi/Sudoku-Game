@@ -44,3 +44,8 @@ This games was cooded in Linux, using the open source **g++ *version=5.4.0 20160
 ## Reference 
 McGuire, Gary & Tugemann, Bastian & Civario, Gilles. (2012). There Is No 16-Clue Sudoku: Solving the Sudoku Minimum Number of Clues Problem via Hitting Set Enumeration. Experimental Mathematics. 23. 10.1080/10586458.2013.870056.
 https://www.researchgate.net/publication/51978217_There_Is_No_16-Clue_Sudoku_Solving_the_Sudoku_Minimum_Number_of_Clues_Problem_via_Hitting_Set_Enumeration
+
+## Call for Contributions
+If you find any mistakes in my code or if you sensed there's a better and optimized way to write/simplify implementation of some part of code then do let me know.
+Suggestions, Improvements or fixes are always appreciated as it not only improves the code but also improves my coding skills. 
+Thanks for your Contributions. :)

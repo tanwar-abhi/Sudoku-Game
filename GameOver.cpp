@@ -29,23 +29,29 @@ void GameOver::SetSolution(std::vector<std::vector<int>> Matrix){
     Solution = Matrix;
 }
 
-std::string GameOver::GameEnd(std::vector<std::vector<int>> GameVector){
+
+void GameOver::GameEnd(std::vector<std::vector<int>> GameVector){
     std::cout<<"If you are done with puzzle type 'end'\n"
              <<"Otherwise type 'play' to keep playing"<<std::endl;
-    
-    std::cin.ignore();
-    std::string GState;
-    std::cin>>GState;
+       
+    std::cin>>CurrentState;
 
-    if (GState == "end"){
+    if (CurrentState == "end"){
         if (GameVector == Solution){
-            GState = "Solved";
+            CurrentState = "Solved";
         }
         else{
-            GState = "WSolution";
+            CurrentState = "WrongSolution";
         }
     }
-    return GState;
+    else if(CurrentState == "play"){
+        return;
+    }
+    else
+    {
+        std::cout<<"THis is what is happeneing wrong##########\n";
+    }
+    
 }
 
 
