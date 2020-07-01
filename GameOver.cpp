@@ -1,4 +1,4 @@
-// Implementation file for Game Over check
+// Implementation file for Game Over.
 
 #include "GameOver.h"
 #include <iostream>
@@ -32,9 +32,8 @@ void GameOver::SetSolution(std::vector<std::vector<int>> Matrix){
 
 
 void GameOver::GameEnd(std::vector<std::vector<int>> GameVector){
-    std::cout<<std::setw(5)<<"If you are done with puzzle type 'end'\n"
-             <<std::setw(5)<<"Otherwise type 'play' to keep playing"<<std::endl;
-       
+    std::cout<<"If you are done with puzzle type 'end', type 'reset' to reset the same puzzle, "
+             <<"Otherwise type 'play' to keep playing :: ";
     std::cin>>CurrentState;
 
     if (CurrentState == "end"){
@@ -44,18 +43,17 @@ void GameOver::GameEnd(std::vector<std::vector<int>> GameVector){
         }
         else{
             CurrentState = "Wrong Solution!!!!";
+            std::cout<<std::setw(50)<<" ~~~~~~~~~~ "<<CurrentState<<" ~~~~~~~~~~ "<<std::endl;
             PrintSolution();
         }
     }
-    else if(CurrentState == "play"){
+    else if(CurrentState == "play" || CurrentState == "reset"){
         return;
     }
-    else
-    {
-        std::cout<<"Invalid choice \nEnter a selection again.\n";
+    else{
+        std::cout<<std::right<<"Invalid choice \nEnter a selection again.\n";
         std::cin>>CurrentState;
     }
-    
 }
 
 

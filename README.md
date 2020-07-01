@@ -27,17 +27,16 @@ This repository is a work in progress for a text based game of sudoku.
 {In future, maybe I will create a GUI and an app based on this solver code so that it can be run on multiple platforms, for fun}
 
 ## How to Compile and Run
-This games was cooded in Linux, using the open source **g++ *version=5.4.0 20160609*** compiler and currently can only run on Linux terminal. Revision *C++17* of the ISO/IEC 14882 standard for the C++ programming language was used for build.
+This games was coded in Linux, using the open source **g++ *version=5.4.0 20160609*** compiler and currently can only run on Linux terminal. Revision *C++17* of the ISO/IEC 14882 standard for the C++ programming language was used for build.
 
 1. To run this game simply fork or clone/download this repository.
 2. Go to the folder containing all the files and type *make*.
-3. Start game by simply launching `RunSudoku` *{./RunSudoku}*.
+3. Start game by simply launching `RunSudoku` *{ ./RunSudoku }*.
 
 ## Reference 
 McGuire, Gary & Tugemann, Bastian & Civario, Gilles. (2012). There Is No 16-Clue Sudoku: Solving the Sudoku Minimum Number of Clues Problem via Hitting Set Enumeration. Experimental Mathematics. 23. 10.1080/10586458.2013.870056.
 https://www.researchgate.net/publication/51978217_There_Is_No_16-Clue_Sudoku_Solving_the_Sudoku_Minimum_Number_of_Clues_Problem_via_Hitting_Set_Enumeration
 
 ## Call for Contributions
-If you find any mistakes in my code or if you sensed there's a better and optimized way to write/simplify implementation of some part of code then rasie a pull request to let me know.
-Suggestions, Improvements or fixes are always appreciated as it not only improves the code but also improves my coding skills. 
+If you find any mistakes in my code or if you sensed there's a better and optimized way to write/simplify implementation of some part of code then raise a pull request to let me know. Suggestions, Improvements or fixes are always appreciated as it not only improves the code but also improves my coding skills. 
 Thanks for your Contributions. :)

@@ -256,3 +256,23 @@ void Puzzle::AddResponse(std::vector<std::vector<int>> &Matrix, unsigned int arr
     }
 }
 
+
+void Puzzle::Reset(std::vector<std::vector<int>> &Matrix){
+    
+    //Reset Matrix elements to zeros
+    for (int i=0; i<Matrix.size(); i++){
+        std::fill(Matrix[i].begin(), Matrix[i].end(), 0);
+    }
+
+    //Insert Initial cluess to generate same puzzle again.
+    for (auto i=FixedPosition.begin(); i!=FixedPosition.end(); i++){
+        for (auto j=i->second.begin(); j!=i->second.end(); j++){
+            Matrix[i->first][j->first] = j->second;
+        }
+    }
+
+    std::cout<<"\n##############################################################\n";
+    std::cout<<"#            Puzzle Reseted to initial state "<<std::setw(18)<<"#\n";
+    std::cout<<"##############################################################\n"<<std::endl;
+
+}

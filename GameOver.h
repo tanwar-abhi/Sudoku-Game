@@ -4,7 +4,6 @@
 #include <vector>
 #include <string>
 
-// GameOver taking public Inherritance from Puzzle class
 class GameOver {
     private:
     std::vector<std::vector<int>> Solution;

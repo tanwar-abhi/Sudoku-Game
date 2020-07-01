@@ -27,5 +27,6 @@ class Puzzle{
 
     void AddResponse(std::vector<std::vector<int>> &Vector2D, unsigned int UserArray[]);
 
+    void Reset(std::vector<std::vector<int>> &Vector2D);
 
 };
