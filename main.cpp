@@ -59,17 +59,22 @@ int main(){
             break;
     }
 
-
    
    
     play:{
         SuPuzzle.makeGrid(PuzzleMatrix);
         std::cout<<"Enter position number, follower by value. i.e. (Row, Column, Digit{1-9})"
-                 <<"\nOnce completed puzzle or if you wish to exit enter any non integer value."
+                 <<"\nOnce completed puzzle or if you wish to exit, enter any non integer value."
                  <<std::endl;
-        unsigned int count=0, playerResponse[3],x;
+        unsigned int count=0, playerResponse[3];
+        std::string x;
         while (std::cin>>x){
-            playerResponse[count] = x;
+            try{
+                playerResponse[count] = stoi(x);
+            }
+            catch(...){
+                break;
+            }
             if (count==2){
                 Sudoku.AddResponse(PuzzleMatrix, playerResponse);
                 count = 0;
@@ -81,18 +86,18 @@ int main(){
             }
         }
 
-        std::cin.ignore();
         std::cout<<"Solution you entered = \n";
         SuPuzzle.Print2dVec(PuzzleMatrix);
-        //SuPuzzle.makeGrid(PuzzleMatrix);
         
-        /*Problem below*/
         State.GameEnd(PuzzleMatrix);
-        std::cout<<State.CurrentState<<std::endl;
-        
-        
+        //std::cout<<State.CurrentState<<std::endl;
+        if (State.CurrentState == "play"){
+            goto play;
+        }
+        else{
+            std::cout<<"############  Game Over!  ############ "<<std::endl;
+        }
     }
-    
     
     return 0;
 }

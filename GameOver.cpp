@@ -2,6 +2,7 @@
 
 #include "GameOver.h"
 #include <iostream>
+#include <iomanip>
 
 GameOver::GameOver(){
     //Default Constructor
@@ -31,17 +32,19 @@ void GameOver::SetSolution(std::vector<std::vector<int>> Matrix){
 
 
 void GameOver::GameEnd(std::vector<std::vector<int>> GameVector){
-    std::cout<<"If you are done with puzzle type 'end'\n"
-             <<"Otherwise type 'play' to keep playing"<<std::endl;
+    std::cout<<std::setw(5)<<"If you are done with puzzle type 'end'\n"
+             <<std::setw(5)<<"Otherwise type 'play' to keep playing"<<std::endl;
        
     std::cin>>CurrentState;
 
     if (CurrentState == "end"){
         if (GameVector == Solution){
             CurrentState = "Solved";
+            std::cout<<"Congratulations!! you solved the puzzle correctly."<<std::endl;
         }
         else{
-            CurrentState = "WrongSolution";
+            CurrentState = "Wrong Solution!!!!";
+            PrintSolution();
         }
     }
     else if(CurrentState == "play"){
@@ -49,7 +52,8 @@ void GameOver::GameEnd(std::vector<std::vector<int>> GameVector){
     }
     else
     {
-        std::cout<<"THis is what is happeneing wrong##########\n";
+        std::cout<<"Invalid choice \nEnter a selection again.\n";
+        std::cin>>CurrentState;
     }
     
 }

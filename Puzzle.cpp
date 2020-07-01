@@ -74,12 +74,12 @@ bool Condition(std::vector<int> vec1D, int value){
 }
 
 
-// This function checks the constraint condition that must always be satisfied to fill the value
-// in puzzle grid, i.e value should not already be present in row, colum or box
-// This returns "True" if number is present in either Row,Column or box. Otherwise returns "false".
+/* This function checks the constraint condition that must always be satisfied to solve the 
+puzzle, i.e value should not already be present in row, colum or box
+This returns "True" if number is present in either Row,Column or box. Otherwise returns "false".*/
 bool RowColBoxCheck(int RN, int CN, int number, std::vector<std::vector<int>> Matrix){
     int m = Matrix.size();
-    int n = Matrix[1].size();
+    int n = Matrix[0].size();
     std::vector<int> RowVector, ColumnVector, BoxVector;
     RowVector = Matrix[RN];
     bool result[3];
