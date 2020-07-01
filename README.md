@@ -18,7 +18,7 @@ To generate the puzzle initially, i used a naive brute force box method approach
 
 * Thus, to improve the implementation and satisfy the constraint optimization, I implemented the recursive backtracking algorithm. Backtracking allows us to retrace our steps and make changes in cells as per the requirement in order to satisfy all constraints of a Sudoku Board.
 
-* In order for a puzzle to be solvable i.e. have only single solution, the user must be given atleast 17 clues. For more details check [Go to Reference section](#Reference).
+* In order for a puzzle to be solvable i.e. have only single solution, the user must be given atleast 17 clues. For more details check [Reference](#Reference).
 
 **A Work in progress {current updates}**
 This repository is a work in progress for a text based game of sudoku.
