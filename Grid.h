@@ -13,5 +13,6 @@ class Grid{
     void Print2dVec(std::vector<std::vector<int>> Vec);
     void makeGrid(std::vector<std::vector<int>> matrix);
     void updateGrid();
+    void Draw(int quantity, char character);
 
 };

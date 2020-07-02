@@ -31,6 +31,12 @@ void Grid::Print2dVec(std::vector<std::vector<int>> Matrix){
 }
 
 
+void Grid::Draw(int count, char text){
+    for (int i=0; i<count; i++){
+        std::cout<<text;
+    }
+}
+
 void Grid::makeGrid(std::vector<std::vector <int>> Ans){
     //Matrix is of size (m,n); "m" rows and "n" columns
     int m = Ans.size();

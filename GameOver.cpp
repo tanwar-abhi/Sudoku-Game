@@ -38,8 +38,8 @@ void GameOver::GameEnd(std::vector<std::vector<int>> GameVector){
 
     if (CurrentState == "end"){
         if (GameVector == Solution){
-            CurrentState = "Solved";
-            std::cout<<"Congratulations!! you solved the puzzle correctly."<<std::endl;
+            CurrentState = "Solved";std::cout<<std::endl;
+            std::cout<<std::setw(30)<<"Congratulations!! you solved the puzzle correctly.\n"<<std::endl;
         }
         else{
             CurrentState = "Wrong Solution!!!!";

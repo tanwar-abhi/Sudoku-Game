@@ -7,6 +7,11 @@
 // <iomanip> is for the I/O manipulator for formating purpose {setw}
 #include <iomanip>
 
+void draw(int count, char text){
+    for (int i=0; i<count; i++){
+        std::cout<<text;
+    }
+}
 
 Puzzle::Puzzle(){
     // Defalut constructor  
@@ -271,8 +276,8 @@ void Puzzle::Reset(std::vector<std::vector<int>> &Matrix){
         }
     }
 
-    std::cout<<"\n##############################################################\n";
-    std::cout<<"#            Puzzle Reseted to initial state "<<std::setw(18)<<"#\n";
-    std::cout<<"##############################################################\n"<<std::endl;
+    std::cout<<"\n"; draw(30,' '); draw(62,'#'); std::cout<<std::endl;
+    draw(30,' ');draw(1,'#');draw(15,' ');std::cout<<"Puzzle Reseted to initial state"; draw(15,' ');
+    std::cout<<"#\n"; draw(30,' '); draw(62,'#'); std::cout<<"\n"<<std::endl;
 
 }

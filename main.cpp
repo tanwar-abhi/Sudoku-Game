@@ -38,8 +38,7 @@ int main(){
         case 2:
             // Generates Random puzzle and saves the solution in Status for future reference.
             Sudoku.GeneratePuzzle(PuzzleMatrix, State);
-            std::cout<<"Generated Puzzle = "<<std::endl;
-            SuGrid.Print2dVec(PuzzleMatrix);
+            std::cout<<"\n  Puzzle Generated  \n"<<std::endl;
             goto play;
             break;
 
@@ -98,8 +97,11 @@ int main(){
             goto play;
         }
         else{
-            std::cout<<std::setw(80)<<"###################  Game Over!  ################### "
-            <<std::endl;
+            
+            std::cout<<std::setw(30); SuGrid.Draw(60,'#'); std::cout<<std::endl;
+            std::cout<<std::setw(30);SuGrid.Draw(1,'#');SuGrid.Draw(24,' ');std::cout<<"Game Over!";
+            SuGrid.Draw(24,' ');SuGrid.Draw(1,'#');std::cout<<std::endl;
+            std::cout<<std::setw(30); SuGrid.Draw(60,'#'); std::cout<<std::endl;          
         }
     }
     
