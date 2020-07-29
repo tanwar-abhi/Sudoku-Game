@@ -49,7 +49,7 @@ void Puzzle::PlayDemo(){
     std::cout<<"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n";
     std::cout << "\nThe Grid is a 2D matrix of (9x9), i.e. 9 rows and 9 columns\n"
               << std::endl;
-    std::cout << "General View of all elements of grid are as follows :\n"
+    std::cout << "General View of positions all elements of grid are as follows :\n"
               << std::endl;
     for (int i = 1; i < 10; i++){
         for (int j = 1; j < 10; j++){
@@ -64,6 +64,7 @@ void Puzzle::PlayDemo(){
     std::cout << "\nSo to play enter the postion of each element first (m,n) then, value to be added in puzzle.\n";
     std::cout << "For Example :: to enter value 5 at 3rd row, 4th column write '3 4 5'{should be space seperated}\n"
               << std::endl;
+    printf("**Note**\nIf you wish to remove a number you entered, simply type Row,column position and give value as '0'.\n");
 }
 
 
@@ -143,12 +144,11 @@ void Puzzle::GeneratePuzzle(std::vector<std::vector<int>> &Matrix, GameOver &Gam
     // Randomly removes elements till defined clues are remaining in the puzzle.
     for (int x=0; x<81-clues; x++){
         // rand()%number will generate random number in range [0,number-1].
-        i = rand()%9;
-        j = rand()%9;
-        while (Matrix[i][j] == 0){
+        do{
             i = rand()%9;
             j = rand()%9;
-        }
+        }while (Matrix[i][j] == 0);
+        
         Matrix[i][j] = 0; 
     }
 
@@ -159,15 +159,6 @@ void Puzzle::GeneratePuzzle(std::vector<std::vector<int>> &Matrix, GameOver &Gam
             }
         }
     }
-
-    /*
-    for (auto itr = FixedPosition.begin(); itr!=FixedPosition.end(); itr++){
-        for (auto ptr = itr->second.begin(); ptr!=itr->second.end(); ptr++){
-            std::cout<<itr->first<<" "<<ptr->first<<" "<<ptr->second<<",";
-        }
-    }
-    std::cout<<std::endl;
-    */
 }
 
 
@@ -236,18 +227,20 @@ void Puzzle::AddResponse(std::vector<std::vector<int>> &Matrix, unsigned int arr
         array[i] -= 1;
     }
 
-    // Check if incorrect grid positions are entered {by mistake}
+    // Check if incorrect grid positions are entered {by user's mistake}
     try{
         if (array[0]>8 || array[1]>8){
             throw "Rows and colums number should only be in range [1,9].";
         }
+        else if (array[2]>9){
+            throw "Value in each cell should always be in range [1,9].";
+        }
     }
     catch(const char* text){
-        std::cout<<"Invalid position selected."<<std::endl;
+        std::cout<<"Invalid values given by player."<<std::endl;
         std::cout<<text<<std::endl;
         return;
     }
-
 
     if (Matrix[array[0]][array[1]] == 0){
         Matrix[array[0]][array[1]] = array[2];
@@ -279,5 +272,4 @@ void Puzzle::Reset(std::vector<std::vector<int>> &Matrix){
     std::cout<<"\n"; draw(30,' '); draw(62,'#'); std::cout<<std::endl;
     draw(30,' ');draw(1,'#');draw(15,' ');std::cout<<"Puzzle Reseted to initial state"; draw(15,' ');
     std::cout<<"#\n"; draw(30,' '); draw(62,'#'); std::cout<<"\n"<<std::endl;
-
 }

@@ -47,21 +47,40 @@ void Grid::makeGrid(std::vector<std::vector <int>> Ans){
         }
         for (int j=0; j<n; j++){
             if ( j==n-1){
-                std::cout<<Ans[i][j]<<" | "<<std::endl;
+                if (Ans[i][j] == 0){
+                    std::cout<<" "<<" | "<<std::endl;
+                }
+                else{
+                    std::cout<<Ans[i][j]<<" | "<<std::endl;
+                }         
             }
             else if(j==0){
-                std::cout<<"| "<<Ans[i][j]<<" : ";
+                if (Ans[i][j] == 0){
+                    std::cout<<"| "<<" "<<" : ";
+                }
+                else{
+                    std::cout<<"| "<<Ans[i][j]<<" : ";
+                }
             }
             else if ( j==2 || j==5){
-                std::cout<<""<<Ans[i][j]<<" | ";
+                if (Ans[i][j] == 0){
+                    std::cout<<" "<<" | ";
+                }
+                else{
+                    std::cout<<Ans[i][j]<<" | ";
+                }
             }
             else{
-                std::cout<<Ans[i][j]<<" : ";
+                if (Ans[i][j] == 0){
+                    std::cout<<" "<<" : ";
+                }
+                else{
+                    std::cout<<Ans[i][j]<<" : ";
+                }         
             }
         }
         if (i==2 || i==5 ){
             std::cout<<"|~~~:~~~:~~~|~~~:~~~:~~~|~~~:~~~:~~~|"<<std::endl;
-            
         }
         else if ( i==8){
             std::cout<<"|-----------|-----------|-----------|"<<std::endl;
@@ -72,4 +91,3 @@ void Grid::makeGrid(std::vector<std::vector <int>> Ans){
     }
     std::cout<<std::endl;
 }
-

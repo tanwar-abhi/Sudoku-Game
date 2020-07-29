@@ -17,8 +17,7 @@ int main(){
     Grid SuGrid;
     GameOver State;
 
-    int playSelect;
-    playSelect = Sudoku.Welcome();
+    int playSelect = Sudoku.Welcome();
 
     try{
         if (playSelect!=1 && playSelect!=2 && playSelect!=3){
@@ -76,7 +75,6 @@ int main(){
             if (count==2){
                 Sudoku.AddResponse(PuzzleMatrix, playerResponse);
                 count = 0;
-                //SuGrid.Print2dVec(PuzzleMatrix);
                 SuGrid.makeGrid(PuzzleMatrix);
             }
             else{
@@ -97,7 +95,6 @@ int main(){
             goto play;
         }
         else{
-            
             std::cout<<std::setw(30); SuGrid.Draw(60,'#'); std::cout<<std::endl;
             std::cout<<std::setw(30);SuGrid.Draw(1,'#');SuGrid.Draw(24,' ');std::cout<<"Game Over!";
             SuGrid.Draw(24,' ');SuGrid.Draw(1,'#');std::cout<<std::endl;

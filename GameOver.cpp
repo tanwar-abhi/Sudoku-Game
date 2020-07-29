@@ -34,7 +34,15 @@ void GameOver::SetSolution(std::vector<std::vector<int>> Matrix){
 void GameOver::GameEnd(std::vector<std::vector<int>> GameVector){
     std::cout<<"If you are done with puzzle type 'end', type 'reset' to reset the same puzzle, "
              <<"Otherwise type 'play' to keep playing :: ";
+    
     std::cin>>CurrentState;
+    do{
+        if (CurrentState!="end" && CurrentState!="reset" && CurrentState!="play"){
+            std::cout<<std::right<<"Invalid choice!! Enter a correct response.\n";
+            std::cin>>CurrentState;
+        }
+    }
+    while(CurrentState!="end" && CurrentState!="reset" && CurrentState!="play");
 
     if (CurrentState == "end"){
         if (GameVector == Solution){
@@ -49,10 +57,6 @@ void GameOver::GameEnd(std::vector<std::vector<int>> GameVector){
     }
     else if(CurrentState == "play" || CurrentState == "reset"){
         return;
-    }
-    else{
-        std::cout<<std::right<<"Invalid choice \nEnter a selection again.\n";
-        std::cin>>CurrentState;
     }
 }
 
