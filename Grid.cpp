@@ -3,7 +3,8 @@
 
 #include <iostream>
 #include "Grid.h"
-
+// <iomanip> is for the I/O manipulator for formating purpose {setw}
+#include <iomanip>
 
 Grid::Grid(){
     //Defalut Constructor
@@ -31,7 +32,7 @@ void Grid::Print2dVec(std::vector<std::vector<int>> Matrix){
 }
 
 
-void Grid::Draw(int count, char text){
+void draw(int count, char text){
     for (int i=0; i<count; i++){
         std::cout<<text;
     }
@@ -48,7 +49,7 @@ void Grid::makeGrid(std::vector<std::vector <int>> Ans){
         for (int j=0; j<n; j++){
             if ( j==n-1){
                 if (Ans[i][j] == 0){
-                    std::cout<<" "<<" | "<<std::endl;
+                    std::cout<<' '<<" | "<<std::endl;
                 }
                 else{
                     std::cout<<Ans[i][j]<<" | "<<std::endl;
@@ -64,7 +65,7 @@ void Grid::makeGrid(std::vector<std::vector <int>> Ans){
             }
             else if ( j==2 || j==5){
                 if (Ans[i][j] == 0){
-                    std::cout<<" "<<" | ";
+                    std::cout<<' '<<" | ";
                 }
                 else{
                     std::cout<<Ans[i][j]<<" | ";
@@ -72,7 +73,7 @@ void Grid::makeGrid(std::vector<std::vector <int>> Ans){
             }
             else{
                 if (Ans[i][j] == 0){
-                    std::cout<<" "<<" : ";
+                    std::cout<<' '<<" : ";
                 }
                 else{
                     std::cout<<Ans[i][j]<<" : ";
@@ -90,4 +91,13 @@ void Grid::makeGrid(std::vector<std::vector <int>> Ans){
         }
     }
     std::cout<<std::endl;
+}
+
+void Grid::DisplayMsg(std::string userInput ){
+    int n = userInput.length();
+    //Setting output justification to be right alligned.
+    std::cout<<"\n"<<std::setw(10); draw(40+n,'#');
+    std::cout<<"\n"<<std::setw(10); draw(1,'#'); draw(40/2,' ');
+    std::cout<<userInput;draw(36/2,' '); std::cout<<"#";
+    std::cout<<"\n"<<std::setw(10); draw(40+n,'#');std::cout<<"\n\n";
 }

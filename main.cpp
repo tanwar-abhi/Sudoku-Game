@@ -4,8 +4,6 @@
 #include "Grid.h"
 #include "Puzzle.h"
 #include "GameOver.h"
-// <iomanip> is for the I/O manipulator for formating purpose {setw}
-#include <iomanip>
 
 
 int main(){
@@ -37,7 +35,7 @@ int main(){
         case 2:
             // Generates Random puzzle and saves the solution in Status for future reference.
             Sudoku.GeneratePuzzle(PuzzleMatrix, State);
-            std::cout<<"\n  Puzzle Generated  \n"<<std::endl;
+            SuGrid.DisplayMsg("Puzzle Generated");
             goto play;
             break;
 
@@ -92,13 +90,11 @@ int main(){
         }
         else if (State.CurrentState == "reset"){
             Sudoku.Reset(PuzzleMatrix);
+            SuGrid.DisplayMsg("Puzzle Reseted to initial state");
             goto play;
         }
         else{
-            std::cout<<std::setw(30); SuGrid.Draw(60,'#'); std::cout<<std::endl;
-            std::cout<<std::setw(30);SuGrid.Draw(1,'#');SuGrid.Draw(24,' ');std::cout<<"Game Over!";
-            SuGrid.Draw(24,' ');SuGrid.Draw(1,'#');std::cout<<std::endl;
-            std::cout<<std::setw(30); SuGrid.Draw(60,'#'); std::cout<<std::endl;          
+            SuGrid.DisplayMsg("Game Over!");
         }
     }
     

@@ -7,11 +7,6 @@
 // <iomanip> is for the I/O manipulator for formating purpose {setw}
 #include <iomanip>
 
-void draw(int count, char text){
-    for (int i=0; i<count; i++){
-        std::cout<<text;
-    }
-}
 
 Puzzle::Puzzle(){
     // Defalut constructor  
@@ -21,15 +16,24 @@ Puzzle::~Puzzle(){
     //Default Destructor
 }
 
+void Draw(int count, char aCharacter){
+    for(int i=0; i<count; i++){
+        std::cout<<aCharacter;
+    }
+}
+
+
 int Puzzle::Welcome(){
     //Generate random seeds for random number creation.
     srand(time(NULL));
 
-    std::cout<<"\n############################################################\n";
-    std::cout<<"#"<<std::setw(60)<<"#\n";
-    std::cout<<"#    *** Welcome to the game of Sudoku, My Friend ****"<<std::setw(6)<<"#"<<std::endl;
-    std::cout<<"#"<<std::setw(59)<<"#"<<std::endl;
-    std::cout << "############################################################\n"<<std::endl;
+    //std::cout<<"\n############################################################\n";
+    std::cout<<"\n"; Draw(64,'#'); std::cout<<"\n";
+    std::cout<<"#"<<std::setw(64)<<"#\n";
+    std::cout<<"#    *** Welcome to the game of Sudoku, My Friend ****"<<std::setw(10)<<"#"<<std::endl;
+    std::cout<<"#"<<std::setw(63)<<"#"<<std::endl;
+    //std::cout << "############################################################\n"<<std::endl;
+    Draw(64,'#');std::cout<<"\n\n";
 
     std::cout<<"Press 1 for Instructions on how to play."
             <<"\nPress 2 to randomly generate puzzle and start playing"
@@ -192,7 +196,7 @@ void Puzzle::UserPuzzle(std::vector<std::vector<int>> &Matrix){
 }
 
 
-// Recursively calling the SolveSudoku function and empolying backtracking to solve grid.
+// Recursively calling the SolveSudoku function, using backtracking to solve grid.
 bool Puzzle::SolveSudoku(std::vector<std::vector<int>> &Matrix){
     int m = Matrix.size();
 
@@ -258,7 +262,7 @@ void Puzzle::AddResponse(std::vector<std::vector<int>> &Matrix, unsigned int arr
 void Puzzle::Reset(std::vector<std::vector<int>> &Matrix){
     
     //Reset Matrix elements to zeros
-    for (int i=0; i<Matrix.size(); i++){
+    for (int i=0, n=Matrix.size(); i<n; i++){
         std::fill(Matrix[i].begin(), Matrix[i].end(), 0);
     }
 
@@ -269,7 +273,4 @@ void Puzzle::Reset(std::vector<std::vector<int>> &Matrix){
         }
     }
 
-    std::cout<<"\n"; draw(30,' '); draw(62,'#'); std::cout<<std::endl;
-    draw(30,' ');draw(1,'#');draw(15,' ');std::cout<<"Puzzle Reseted to initial state"; draw(15,' ');
-    std::cout<<"#\n"; draw(30,' '); draw(62,'#'); std::cout<<"\n"<<std::endl;
 }

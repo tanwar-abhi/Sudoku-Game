@@ -32,7 +32,7 @@ void GameOver::SetSolution(std::vector<std::vector<int>> Matrix){
 
 
 void GameOver::GameEnd(std::vector<std::vector<int>> GameVector){
-    std::cout<<"If you are done with puzzle type 'end', type 'reset' to reset the same puzzle, "
+    std::cout<<"If you are done with puzzle type 'end', else type 'reset' to reset the same puzzle, "
              <<"Otherwise type 'play' to keep playing :: ";
     
     std::cin>>CurrentState;
