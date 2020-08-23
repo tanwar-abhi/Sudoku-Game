@@ -27,12 +27,10 @@ int Puzzle::Welcome(){
     //Generate random seeds for random number creation.
     srand(time(NULL));
 
-    //std::cout<<"\n############################################################\n";
     std::cout<<"\n"; Draw(64,'#'); std::cout<<"\n";
     std::cout<<"#"<<std::setw(64)<<"#\n";
     std::cout<<"#    *** Welcome to the game of Sudoku, My Friend ****"<<std::setw(10)<<"#"<<std::endl;
     std::cout<<"#"<<std::setw(63)<<"#"<<std::endl;
-    //std::cout << "############################################################\n"<<std::endl;
     Draw(64,'#');std::cout<<"\n\n";
 
     std::cout<<"Press 1 for Instructions on how to play."
@@ -119,7 +117,7 @@ bool RowColBoxCheck(int RN, int CN, int number, std::vector<std::vector<int>> Ma
 }
 
 
-// Randomly fills the grid box of puzzle, required argument, box's staring row and colum numbers.
+// Randomly fills the first grid box of puzzle, required arguments, box's staring row and colum numbers.
 void puzzleBoxFill(std::vector<std::vector <int>> &Matrix,int Row, int Col){
     for (int i=Row; i<Row+3; i++){
         for (int j=Col; j<Col+3; j++){
