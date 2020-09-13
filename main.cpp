@@ -106,5 +106,4 @@ void GamePlay(std::vector<std::vector<int>> &PuzzleMatrix, Puzzle &Sudoku, Grid 
     else{
         SuGrid.DisplayMsg("Game Over!");
     }
-
 }
