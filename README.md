@@ -40,6 +40,6 @@ Thanks for your Contributions. :)
 **A Work in progress {current updates}**
 This repository is a work in progress for a text based game of sudoku.
 
-[x] Puzzle solver implemented using backtracking algorithm.
-[x] Terminal text based user interface build, terminal aesthetic rendition for user.
-[ ] Create a GUI and an app based on this solver code so that it can be run on multiple platforms, for fun.
+- [x] Puzzle solver implemented using backtracking algorithm.
+- [x] Terminal text based user interface build, terminal aesthetic rendition for user.
+- [ ] Create a GUI and an app based on this solver code so that it can be run on multiple platforms, for fun.
