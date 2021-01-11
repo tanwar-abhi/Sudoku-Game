@@ -14,7 +14,7 @@ Grid::~Grid(){
     //Default Destructor
 }
 
-
+// Print puzzle matrix
 void Grid::Print2dVec(std::vector<std::vector<int>> Matrix){
     int m = Matrix.size();
     for (int i = 0; i < m; i++){
@@ -32,12 +32,15 @@ void Grid::Print2dVec(std::vector<std::vector<int>> Matrix){
 }
 
 
+// This function is used to diplay a character on CLI as per user defined quantity.
 void draw(int count, char text){
     for (int i=0; i<count; i++){
         std::cout<<text;
     }
 }
 
+
+// Creates an aesthetical grid of puzzle for user.
 void Grid::makeGrid(std::vector<std::vector <int>> Ans){
     //Matrix is of size (m,n); "m" rows and "n" columns
     int m = Ans.size();
@@ -47,7 +50,7 @@ void Grid::makeGrid(std::vector<std::vector <int>> Ans){
             std::cout<<"|-----------|-----------|-----------|"<<std::endl;
         }
         for (int j=0; j<n; j++){
-            if ( j==n-1){
+            if ( j == n-1){
                 if (Ans[i][j] == 0){
                     std::cout<<' '<<" | "<<std::endl;
                 }
@@ -55,7 +58,7 @@ void Grid::makeGrid(std::vector<std::vector <int>> Ans){
                     std::cout<<Ans[i][j]<<" | "<<std::endl;
                 }         
             }
-            else if(j==0){
+            else if(j == 0){
                 if (Ans[i][j] == 0){
                     std::cout<<"| "<<" "<<" : ";
                 }
@@ -63,7 +66,7 @@ void Grid::makeGrid(std::vector<std::vector <int>> Ans){
                     std::cout<<"| "<<Ans[i][j]<<" : ";
                 }
             }
-            else if ( j==2 || j==5){
+            else if ( j == 2 || j == 5){
                 if (Ans[i][j] == 0){
                     std::cout<<' '<<" | ";
                 }
@@ -80,10 +83,10 @@ void Grid::makeGrid(std::vector<std::vector <int>> Ans){
                 }         
             }
         }
-        if (i==2 || i==5 ){
+        if (i == 2 || i == 5 ){
             std::cout<<"|~~~:~~~:~~~|~~~:~~~:~~~|~~~:~~~:~~~|"<<std::endl;
         }
-        else if ( i==8){
+        else if ( i == 8){
             std::cout<<"|-----------|-----------|-----------|"<<std::endl;
         }
         else{
@@ -93,6 +96,8 @@ void Grid::makeGrid(std::vector<std::vector <int>> Ans){
     std::cout<<std::endl;
 }
 
+
+// Another function that prints the state message for the game, based on user selection.
 void Grid::DisplayMsg(std::string userInput ){
     int n = userInput.length();
     //Setting output justification to be right alligned.

@@ -23,6 +23,8 @@ void Draw(int count, char aCharacter){
 }
 
 
+// Initial welcome message prompting user to make choice to either generate puzzle and start playing 
+// or enter a user defined puzzle that solver will solve give the output on CLI.
 int Puzzle::Welcome(){
     //Generate random seeds for random number creation.
     srand(time(NULL));
@@ -42,6 +44,7 @@ int Puzzle::Welcome(){
     return x;
 }
 
+// A simple demo message instructing user about how to play and navigate through game states.
 void Puzzle::PlayDemo(){
     std::cout<<"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n";
     std::cout<<std::setw(50)<<"Rules of Sudoku\n";
@@ -144,7 +147,7 @@ void Puzzle::GeneratePuzzle(std::vector<std::vector<int>> &Matrix, GameOver &Gam
     
     unsigned int i,j,clues = 40;
     // Randomly removes elements till defined clues are remaining in the puzzle.
-    for (int x=0; x<81-clues; x++){
+    for (int x = 0; x< 81-clues; x++){
         // rand()%number will generate random number in range [0,number-1].
         do{
             i = rand()%9;
@@ -154,8 +157,8 @@ void Puzzle::GeneratePuzzle(std::vector<std::vector<int>> &Matrix, GameOver &Gam
         Matrix[i][j] = 0; 
     }
 
-    for (i=0;i<9;i++){
-        for (j=0; j<9; j++){
+    for (i = 0; i < 9; i++){
+        for (j = 0; j < 9; j++){
             if (Matrix[i][j] != 0){
                 FixedPosition[i][j] = Matrix[i][j];
             }
@@ -178,7 +181,7 @@ void Puzzle::UserPuzzle(std::vector<std::vector<int>> &Matrix){
         }
     }
   
-    /* Initially for checking lets enter a puzzle whose solution we already know.
+    /* Initially for checking let's enter a puzzle whose solution we already know.
     
     Matrix = {{0,0,0,0,5,0,0,4,0},
             {0,0,6,7,4,1,2,8,5},
@@ -198,11 +201,11 @@ void Puzzle::UserPuzzle(std::vector<std::vector<int>> &Matrix){
 bool Puzzle::SolveSudoku(std::vector<std::vector<int>> &Matrix){
     int m = Matrix.size();
 
-    for (int i=0; i<m; i++){
+    for (int i = 0; i < m; i++){
         int n = Matrix[i].size();
-        for (int j=0; j<n; j++){
+        for (int j = 0; j < n; j++){
             if (Matrix[i][j] == 0){
-                for (int value = 1; value<10; value++ ){
+                for (int value = 1; value < 10; value++){
                     if (!RowColBoxCheck(i,j,value,Matrix)){
                         Matrix[i][j] = value;
                     
@@ -214,7 +217,8 @@ bool Puzzle::SolveSudoku(std::vector<std::vector<int>> &Matrix){
                         }
                     }
                 }
-                // This triggers backtracking
+                // This triggers backtracking, i.e. no value from [1,9] satisfies the constrained condition
+                // thus goes back to previous location in matrix and changes it to 0. 
                 return false;
             }
         }

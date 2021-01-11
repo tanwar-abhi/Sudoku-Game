@@ -13,12 +13,18 @@ class Puzzle{
     std::map<int,std::map<int,int>> FixedPosition;
 
     public:
+    // Default constructor called during creation of an object using puzzle.
     Puzzle();
+    // Default destructor for puzzle object, called at destruction of puzzle object.
     ~Puzzle();
 
+    // Displays initial welcome message, prompt user to make choice between game or solver.
     int Welcome();
+
+    // Displays a demo about how to play game using CLI.
     void PlayDemo();
 
+    // Generates puzzle randomly.
     void GeneratePuzzle(std::vector<std::vector<int>> &VecDD, GameOver &StateObject);
 
     void UserPuzzle(std::vector<std::vector<int>> &vect2D);
