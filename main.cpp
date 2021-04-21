@@ -3,9 +3,6 @@
 #include <iostream>
 #include "Puzzle.h"
 
-void GamePlay(std::vector<std::vector<int>> &, Puzzle &, Grid &, GameOver &);
-
-
 int main(){
     
     //2D vector that contains the Grid elements (9x9).
