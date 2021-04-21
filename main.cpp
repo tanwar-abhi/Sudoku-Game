@@ -1,9 +1,7 @@
 // This is the main implementation file for the execution of suDokU
 
 #include <iostream>
-#include "Grid.h"
 #include "Puzzle.h"
-#include "GameOver.h"
 
 void GamePlay(std::vector<std::vector<int>> &, Puzzle &, Grid &, GameOver &);
 
@@ -20,7 +18,7 @@ int main(){
     int playSelect = Sudoku.Welcome();
 
     try{
-        if (playSelect!=1 && playSelect!=2 && playSelect!=3){
+        if (playSelect != 1 && playSelect != 2 && playSelect != 3){
             throw "Game aborted!! Run the game again ";
         }
     }
@@ -35,10 +33,15 @@ int main(){
             Sudoku.PlayDemo();
 
         case 2:
+            unsigned int clues ;
+            GameGrid.DisplayMsg("Select puzzle difficulty level");
+            clues = Sudoku.SelectLevel();
+
             // Generates Random puzzle and saves the solution in Status for future reference.
-            Sudoku.GeneratePuzzle(PuzzleMatrix, GameState);
+            Sudoku.GeneratePuzzle(PuzzleMatrix, GameState, clues);
+            // Sudoku.GeneratePuzzle(PuzzleMatrix, GameState);
             GameGrid.DisplayMsg("Puzzle Generated");
-            GamePlay(PuzzleMatrix, Sudoku, GameGrid, GameState);
+            Sudoku.GamePlay(PuzzleMatrix, Sudoku, GameGrid, GameState);
             break;
 
         case 3:
@@ -54,56 +57,6 @@ int main(){
                 <<"\nNot enough clues were given to solve the puzzle."
                 <<std::endl;
             }
-            return 0;
     }
-    
     return 0;
-}
-
-
-
-
-void GamePlay(std::vector<std::vector<int>> &PuzzleMatrix, Puzzle &Sudoku, Grid &SuGrid, GameOver &State){
-
-    SuGrid.makeGrid(PuzzleMatrix);
-    std::cout<<"Enter position number, follower by value. i.e. (Row, Column, Digit{1-9})"
-                <<"\nOnce completed puzzle or if you wish to exit, enter any non integer value."
-                <<std::endl;
-    unsigned int count=0, playerResponse[3];
-    std::string x;
-    while (std::cin>>x){
-        try{
-            playerResponse[count] = stoi(x);
-        }
-        catch(...){
-            break;
-        }
-        if (count==2){
-            Sudoku.AddResponse(PuzzleMatrix, playerResponse);
-            count = 0;
-            SuGrid.makeGrid(PuzzleMatrix);
-        }
-        else{
-            count++;
-        }
-    }
-    
-    std::cout<<"Solution you entered = \n";
-    SuGrid.Print2dVec(PuzzleMatrix);
-
-    State.GameEnd(PuzzleMatrix);
-
-    if (State.CurrentState == "play"){
-        //goto play
-        GamePlay(PuzzleMatrix, Sudoku, SuGrid, State);
-        }
-    else if (State.CurrentState == "reset"){
-        Sudoku.Reset(PuzzleMatrix);
-        SuGrid.DisplayMsg("Puzzle Reseted to initial state");
-        //goto play;
-        GamePlay(PuzzleMatrix, Sudoku, SuGrid, State);
-    }
-    else{
-        SuGrid.DisplayMsg("Game Over!");
-    }
 }

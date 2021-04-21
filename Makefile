@@ -1,6 +1,7 @@
 # The make file used to compile the sudoku game and sub classes.
 
-CXXFLAGS = -std=c++17
+# Using c++20 standard version
+CXXFLAGS = -std=c++2a
 
 all:Sudoku
 

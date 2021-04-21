@@ -22,7 +22,7 @@ It is the result of my personal interest in c++, sudoku and mathematical optimiz
 
 
 ## How to Compile and Run
-This games was coded in Linux, using the open source **g++ *version=5.4.0 20160609*** compiler and currently can only run on Command Line Interface (CLI). Revision *C++17* of the ISO/IEC 14882 standard for the C++ programming language was used for build.
+This games was coded in Linux, using the open source **g++ *version=9.3.0 20160609*** compiler and currently can only run on Command Line Interface (CLI). Revision *C++20* of the ISO/IEC 14882 standard for the C++ programming language was used for build.
 
 1. To run this game simply fork or clone/download this repository.
 2. Go to the folder containing all the files and type *make*.

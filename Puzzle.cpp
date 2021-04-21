@@ -46,12 +46,13 @@ int Puzzle::Welcome(){
 
 // A simple demo message instructing user about how to play and navigate through game states.
 void Puzzle::PlayDemo(){
-    std::cout<<"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n";
+    Draw(94, '~');std::cout<<"\n";
     std::cout<<std::setw(50)<<"Rules of Sudoku\n";
     std::cout<<"The classic Sudoku game involves a grid of 81 cells.\n"
              <<"Each row, column and square (9 spaces each) needs to be filled out with the numbers 1-9,"
              <<"\nwithout repeating any numbers within the row, column or square (box of 3x3).\n";
-    std::cout<<"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n";
+    Draw(94, '~');std::cout<<"\n";
+
     std::cout << "\nThe Grid is a 2D matrix of (9x9), i.e. 9 rows and 9 columns\n"
               << std::endl;
     std::cout << "General View of positions all elements of grid are as follows :\n"
@@ -72,6 +73,38 @@ void Puzzle::PlayDemo(){
     printf("**Note**\nIf you wish to remove a number you entered, simply type Row,column position and give value as '0'.\n");
 }
 
+
+// Ask user to select difficulty of the puzzle
+unsigned int Puzzle::SelectLevel()
+{
+    unsigned int x, nosClue;
+    // std::cout<<"Select puzzle difficulty level\n";
+    std::cout<<"Press 1 for Easy Level Puzzle\nPress 2 for Medium Level Puzzle\n"
+            <<"Press 3 for Hard Level Puzzle\nPress 4 for Very Hard Level Puzzle\n";
+    do{
+        std::cin>>x;
+    }while(x < 1 || x > 4);
+
+    switch(x)
+    {
+        case 1:
+            // Random variable between 70 and 55.
+            nosClue = 55 + (rand()%(70-55));
+            break;
+        case 2:
+            // Random variable between 50 and 30.
+            nosClue = 35 + (rand()%(55-35));
+            break;
+        case 3:
+            nosClue = 25 + (rand()%(35-25));
+            break;
+        case 4:
+            nosClue = 18 + (rand()%(25-18));
+            break;
+    }
+    
+    return nosClue;
+}
 
 
 // Simply checks whether value is present in the vector or not. Called from RowColBoxCheck
@@ -134,6 +167,7 @@ void puzzleBoxFill(std::vector<std::vector <int>> &Matrix,int Row, int Col){
 }
 
 
+// Creates a solvable Sudoku Puzzle
 void Puzzle::GeneratePuzzle(std::vector<std::vector<int>> &Matrix, GameOver &GameState){
     
     //Randomly fill 3x3 first box to initialize the puzzle so that each generated puzzle is different.
@@ -145,7 +179,7 @@ void Puzzle::GeneratePuzzle(std::vector<std::vector<int>> &Matrix, GameOver &Gam
         std::cout<<"Puzzle Generation failed!!!!!"<<std::endl;
     }
     
-    unsigned int i,j,clues = 40;
+    unsigned int i, j, clues = 50;
     // Randomly removes elements till defined clues are remaining in the puzzle.
     for (int x = 0; x< 81-clues; x++){
         // rand()%number will generate random number in range [0,number-1].
@@ -167,10 +201,9 @@ void Puzzle::GeneratePuzzle(std::vector<std::vector<int>> &Matrix, GameOver &Gam
 }
 
 
-
 // Enter user defined puzzle to be solved by the algorithm.
 void Puzzle::UserPuzzle(std::vector<std::vector<int>> &Matrix){
-    
+    /* 
     std::cout<<"Enter the digits( with spaces after each digit) of your puzzle you wish to solve\nStarting from top left corner keep on entering the digits"<<std::endl;
     std::cout<<"Enter '0' to signify the blank spaces in the puzzle."<<std::endl;
     int digit;
@@ -181,8 +214,9 @@ void Puzzle::UserPuzzle(std::vector<std::vector<int>> &Matrix){
         }
     }
   
-    /* Initially for checking let's enter a puzzle whose solution we already know.
-    
+    Initially for checking let's enter a puzzle whose solution we already know.
+    */
+
     Matrix = {{0,0,0,0,5,0,0,4,0},
             {0,0,6,7,4,1,2,8,5},
             {4,8,0,9,0,0,0,0,6},
@@ -192,7 +226,7 @@ void Puzzle::UserPuzzle(std::vector<std::vector<int>> &Matrix){
             {3,0,0,0,0,9,0,1,2},
             {8,7,2,3,1,6,4,0,0},
             {0,1,0,0,7,0,0,0,0}};
-            */
+            
     
 }
 
@@ -223,8 +257,8 @@ bool Puzzle::SolveSudoku(std::vector<std::vector<int>> &Matrix){
             }
         }
     }
+    return true;
 }
-
 
 
 void Puzzle::AddResponse(std::vector<std::vector<int>> &Matrix, unsigned int array[]){
@@ -275,4 +309,84 @@ void Puzzle::Reset(std::vector<std::vector<int>> &Matrix){
         }
     }
 
+}
+
+
+void Puzzle::GamePlay(std::vector<std::vector<int>> &PuzzleMatrix, Puzzle &Sudoku, Grid &SuGrid, GameOver &State){
+
+    SuGrid.makeGrid(PuzzleMatrix);
+    std::cout<<"Enter position number, follower by value in space seperated format. i.e. (Row Column Digit{1-9})"
+                <<"\nOnce completed puzzle or if you wish to exit, enter any non integer value."
+                <<std::endl;
+    unsigned int count = 0, playerResponse[3];
+    std::string x;
+    while (std::cin>>x){
+        try{
+            playerResponse[count] = stoi(x);
+        }
+        catch(...){
+            // Break if user enters anything other than an integer
+            break;
+        }
+        if (count == 2){
+            Sudoku.AddResponse(PuzzleMatrix, playerResponse);
+            count = 0;
+            SuGrid.makeGrid(PuzzleMatrix);
+        }
+        else{
+            count++;
+        }
+    }
+    
+    std::cout<<"Solution you entered = \n";
+    SuGrid.Print2dVec(PuzzleMatrix);
+
+    State.GameEnd(PuzzleMatrix);
+
+    if (State.CurrentState == "play"){
+        //goto play
+        GamePlay(PuzzleMatrix, Sudoku, SuGrid, State);
+        }
+    else if (State.CurrentState == "reset"){
+        Sudoku.Reset(PuzzleMatrix);
+        SuGrid.DisplayMsg("Puzzle Reseted to initial state");
+        //goto play;
+        GamePlay(PuzzleMatrix, Sudoku, SuGrid, State);
+    }
+    else{
+        SuGrid.DisplayMsg("Game Over!");
+    }
+}
+
+
+void Puzzle::GeneratePuzzle(std::vector<std::vector<int>> &Matrix, GameOver &GameState, const unsigned int clues){
+    
+    //Randomly fill 3x3 first box to initialize the puzzle so that each generated puzzle is different.
+    puzzleBoxFill(Matrix,0,0);
+    if (SolveSudoku(Matrix)){
+        GameState.SetSolution(Matrix);
+    }
+    else{
+        std::cout<<"Puzzle Generation failed!!!!!"<<std::endl;
+    }
+    
+    unsigned int i, j;
+    // Randomly removes elements till defined clues are remaining in the puzzle.
+    for (int x = 0; x< 81-clues; x++){
+        // rand()%number will generate random number in range [0,number-1].
+        do{
+            i = rand()%9;
+            j = rand()%9;
+        }while (Matrix[i][j] == 0);
+        
+        Matrix[i][j] = 0; 
+    }
+
+    for (i = 0; i < 9; i++){
+        for (j = 0; j < 9; j++){
+            if (Matrix[i][j] != 0){
+                FixedPosition[i][j] = Matrix[i][j];
+            }
+        }
+    }
 }

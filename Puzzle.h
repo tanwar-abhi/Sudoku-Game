@@ -2,6 +2,7 @@
 // Puzzle is a 2D vector (i.e) matrix of size (m*n)
 
 #pragma once
+#include "Grid.h"
 #include "GameOver.h"
 #include <map>
 
@@ -27,12 +28,23 @@ class Puzzle{
     // Generates puzzle randomly.
     void GeneratePuzzle(std::vector<std::vector<int>> &VecDD, GameOver &StateObject);
 
+    // Generates random puzzle as per selected difficulty.
+    void GeneratePuzzle(std::vector<std::vector<int>> &VecDD, GameOver &StateObject, const unsigned int);
+
     void UserPuzzle(std::vector<std::vector<int>> &vect2D);
 
     bool SolveSudoku(std::vector<std::vector<int>> &vector2D);
 
+    // Check user input, if correct format enetered by user then add value in puzzle grid.
     void AddResponse(std::vector<std::vector<int>> &Vector2D, unsigned int UserArray[]);
 
+    // Reset the game to initial puzzle, removing all user response
     void Reset(std::vector<std::vector<int>> &Vector2D);
+
+    // Ask user to select a particular dificulty level.
+    unsigned int SelectLevel();
+
+    // Game play for generated sudoku puzzle
+    void GamePlay(std::vector<std::vector<int>> &, Puzzle &, Grid &, GameOver &);
 
 };

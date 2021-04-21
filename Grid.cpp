@@ -21,6 +21,7 @@ void Grid::Print2dVec(std::vector<std::vector<int>> Matrix){
         int n = Matrix[i].size();
         for (int j = 0; j < n; j++){
             if (j == n - 1){
+                // Print values in puzzle entered by user, spaces where user did't enter a value.
                 std::cout << Matrix[i][j] << std::endl;
             }
             else{
@@ -47,7 +48,9 @@ void Grid::makeGrid(std::vector<std::vector <int>> Ans){
     for (int i=0; i<m; i++){
         int n = Ans[i].size();
         if (i==0 ){
-            std::cout<<"|-----------|-----------|-----------|"<<std::endl;
+            std::cout<<"|";draw(11,'~');std::cout<<"|";draw(11,'~');
+            std::cout<<"|";draw(11,'~');std::cout<<"|\n";
+            // std::cout<<"|-----------|-----------|-----------|"<<std::endl;
         }
         for (int j=0; j<n; j++){
             if ( j == n-1){
@@ -87,7 +90,9 @@ void Grid::makeGrid(std::vector<std::vector <int>> Ans){
             std::cout<<"|~~~:~~~:~~~|~~~:~~~:~~~|~~~:~~~:~~~|"<<std::endl;
         }
         else if ( i == 8){
-            std::cout<<"|-----------|-----------|-----------|"<<std::endl;
+            // std::cout<<"|-----------|-----------|-----------|"<<std::endl;
+            std::cout<<"|";draw(11,'~');std::cout<<"|";draw(11,'~');
+            std::cout<<"|";draw(11,'~');std::cout<<"|\n";
         }
         else{
             std::cout<<"|---:---:---|---:---:---|---:---:---|"<<std::endl;
@@ -99,10 +104,10 @@ void Grid::makeGrid(std::vector<std::vector <int>> Ans){
 
 // Another function that prints the state message for the game, based on user selection.
 void Grid::DisplayMsg(std::string userInput ){
-    int n = userInput.length();
+    int n = userInput.length(), w = 30;
     //Setting output justification to be right alligned.
-    std::cout<<"\n"<<std::setw(10); draw(40+n,'#');
-    std::cout<<"\n"<<std::setw(10); draw(1,'#'); draw(40/2,' ');
-    std::cout<<userInput;draw(36/2,' '); std::cout<<"#";
-    std::cout<<"\n"<<std::setw(10); draw(40+n,'#');std::cout<<"\n\n";
+    std::cout<<"\n"<<std::setw(w); draw(50+n,'#');
+    std::cout<<"\n"<<std::setw(w); draw(1,'#'); draw(50/2,' ');
+    std::cout<<userInput;draw(46/2,' '); std::cout<<"#";
+    std::cout<<"\n"<<std::setw(w); draw(50+n,'#');std::cout<<"\n\n";
 }
