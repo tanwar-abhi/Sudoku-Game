@@ -51,4 +51,4 @@ https://www.researchgate.net/publication/51978217_There_Is_No_16-Clue_Sudoku_Sol
 
 ## Call for Contributions
 If you find any mistakes in my code or if you sensed there's a better and optimized way to write/simplify implementation of some part of code then raise a pull request to let me know. Suggestions, Improvements or fixes are always appreciated as it not only improves the code but also improves my coding skills. 
-Thanks for your Contributions. :)
+Thanks for your Contributions. 
