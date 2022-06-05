@@ -22,14 +22,14 @@ int main(){
     catch (const char* text){
         std::cout<<"You made an invalid choice. Please make an appropriate choice"<<std::endl;
         std::cout<<text<<std::endl;
-        return 1;
+        return -403;
     }
 
     switch (playSelect){
         case 1:
             Sudoku.PlayDemo();
 
-        case 2:
+        case 2:{
             unsigned int clues ;
             GameGrid.DisplayMsg("Select puzzle difficulty level");
             clues = Sudoku.SelectLevel();
@@ -40,8 +40,9 @@ int main(){
             GameGrid.DisplayMsg("Puzzle Generated");
             Sudoku.GamePlay(PuzzleMatrix, Sudoku, GameGrid, GameState);
             break;
+        }
 
-        case 3:
+        case 3:{
             Sudoku.UserPuzzle(PuzzleMatrix);
             std::cout<<"\nThe puzzle you entered is = \n";
             GameGrid.Print2dVec(PuzzleMatrix);
@@ -54,6 +55,7 @@ int main(){
                 <<"\nNot enough clues were given to solve the puzzle."
                 <<std::endl;
             }
+        }
     }
     return 0;
 }
