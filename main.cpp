@@ -1,7 +1,7 @@
 // This is the main implementation file for the execution of suDokU
 
 #include <iostream>
-#include "Puzzle.h"
+#include "src/Puzzle.h"
 
 int main(){
     

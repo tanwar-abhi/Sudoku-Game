@@ -9,13 +9,14 @@
 This repository contains the implementation of a text based {without GUI} game of sudoku, which I coded in c++.
 It is the result of my personal interest in c++, sudoku and mathematical optimization.
 
-`Grid` -> Implementation file containing declaration (.h) and definition (.cpp) of all the member functions and variables of `Grid` class. The Grid class takes care of the aesthetic portion of the puzzle. It displays the puzzle in a tabular and graphic view for ease of user.
+## Directory Structure
+This directory contains a `build` directory that will contain all build files when cmake is invoked.
 
-`Puzzle` -> Puzzle class definition (.cpp), declaration (.h) and implementation file, this essentially deals in generating the Puzzle which is simply a Matrix (i.e. 2D Vector). This class also handles the user play aspects of the game.
+`src` is the subdirectory containing source code.
 
-`GameOver` -> This file contains the declaration (.h) and implementation (.cpp) definition of code for checking whether a particular puzzle is solved correctly or not by the user. This class controls the status of the game.
+`CMakeLists.txt` top level file that invokes all calls to compile and build the project.
 
-`main.cpp` -> The main file that contains all the objects and function calls that run's the game efficiently.
+`compileRun.sh` shell script to automate the call to cmake to build and run the game.
 
 ## Some observations and lessons learned.
 * To generate the puzzle initially, i used a naive brute force box method approach. Wherein I filled all the diagonal boxes of the puzzle first, i.e. right diagonal first then left diagonal and then finally all the remaining elements as per the condition of Sudoku.
@@ -33,11 +34,6 @@ This games was coded in Linux, using the open source **g++ *version=9.3.0 201606
 1. To run this game simply fork or clone/download this repository.
 2. To compile the game and run simply run the shell script `compileRun.sh` *{ ./compileRun.sh }*.
 
-## Reference 
-McGuire, Gary & Tugemann, Bastian & Civario, Gilles. (2012). There Is No 16-Clue Sudoku: Solving the Sudoku Minimum Number of Clues Problem via Hitting Set Enumeration. Experimental Mathematics. 23. 10.1080/10586458.2013.870056.
-
-https://www.researchgate.net/publication/51978217_There_Is_No_16-Clue_Sudoku_Solving_the_Sudoku_Minimum_Number_of_Clues_Problem_via_Hitting_Set_Enumeration
-
 
 **A Work in progress {current updates}**
 This repository is a work in progress for a text based game of sudoku.
@@ -45,6 +41,12 @@ This repository is a work in progress for a text based game of sudoku.
 - [x] Puzzle solver implemented using backtracking algorithm.
 - [x] Terminal text based user interface build, terminal aesthetic rendition for user.
 - [ ] Create a GUI and an app based on this solver code so that it can be run on multiple platforms, for fun.
+
+
+## Reference 
+McGuire, Gary & Tugemann, Bastian & Civario, Gilles. (2012). There Is No 16-Clue Sudoku: Solving the Sudoku Minimum Number of Clues Problem via Hitting Set Enumeration. Experimental Mathematics. 23. 10.1080/10586458.2013.870056.
+
+https://www.researchgate.net/publication/51978217_There_Is_No_16-Clue_Sudoku_Solving_the_Sudoku_Minimum_Number_of_Clues_Problem_via_Hitting_Set_Enumeration
 
 
 ## Call for Contributions
