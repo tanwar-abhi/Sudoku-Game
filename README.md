@@ -3,7 +3,7 @@
 
 
 **Version 1.4 updates**
-- [x] Build system updated from privitive to MakeFile to modern and cross platform suppored **CMAKE**
+- [x] Build system updated from privitive *MakeFile* to modern and cross platform suppored **CMAKE**
 
 
 This repository contains the implementation of a text based {without GUI} game of sudoku, which I coded in c++.
@@ -31,8 +31,7 @@ It is the result of my personal interest in c++, sudoku and mathematical optimiz
 This games was coded in Linux, using the open source **g++ *version=9.3.0 20160609*** compiler and currently can only run on Command Line Interface (CLI). Revision *C++20* of the ISO/IEC 14882 standard for the C++ programming language was used for build.
 
 1. To run this game simply fork or clone/download this repository.
-2. Go to the folder containing all the files and type *make*.
-3. Start game by simply launching `RunSudoku` *{ ./RunSudoku }*.
+2. To compile the game and run simply run the shell script `compileRun.sh` *{ ./compileRun.sh }*.
 
 ## Reference 
 McGuire, Gary & Tugemann, Bastian & Civario, Gilles. (2012). There Is No 16-Clue Sudoku: Solving the Sudoku Minimum Number of Clues Problem via Hitting Set Enumeration. Experimental Mathematics. 23. 10.1080/10586458.2013.870056.
