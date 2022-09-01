@@ -3,6 +3,7 @@
 #include "GameOver.h"
 #include <iostream>
 #include <iomanip>
+#include <algorithm>
 
 GameOver::GameOver(){
     //Default Constructor
@@ -39,17 +40,18 @@ void GameOver::GameEnd(std::vector<std::vector<int>> GameVector){
     std::cout<<"If you are done with puzzle type 'end', else type 'reset' to reset the same puzzle, "
              <<"Otherwise type 'play' to keep playing :: ";
     
-    std::cin>>CurrentState;
+    //std::cin>>CurrentState;
+    CurrentState = "state";
+
     // Keeps on asking until user gives valid response.
     do{
-        if (CurrentState!="end" && CurrentState!="reset" && CurrentState!="play"){
-            std::cout<<std::right<<"Invalid choice!! Enter a correct response.\n";
-            std::cin>>CurrentState;
-        }
+	std::cout<<std::right<<"Invalid choice!! Enter a correct response.\n";
+	std::cin>>CurrentState;
+	std::transform(CurrentState.begin(), CurrentState.end(), CurrentState.begin(), ::toupper);
     }
-    while(CurrentState!="end" && CurrentState!="reset" && CurrentState!="play");
+    while(CurrentState!="END" && CurrentState!="RESET" && CurrentState!="PLAY");
 
-    if (CurrentState == "end"){
+    if (CurrentState == "END"){
         if (GameVector == Solution){
             CurrentState = "Solved";std::cout<<std::endl;
             std::cout<<std::setw(30)<<"Congratulations!! you solved the puzzle correctly.\n"<<std::endl;
@@ -60,7 +62,7 @@ void GameOver::GameEnd(std::vector<std::vector<int>> GameVector){
             PrintSolution();
         }
     }
-    else if(CurrentState == "play" || CurrentState == "reset"){
+    else if(CurrentState == "PLAY" || CurrentState == "RESET"){
         return;
     }
 }
