@@ -7,9 +7,8 @@ cmake_minimum_required(VERSION 3.15)
 project(SudokuGame VERSION 1.4)
 
 
-# C++ standard 20 is required to correctly run the game code
-# Hence, building the project to call c++20 standard at the time of compilation
-set(CMAKE_CXX_STANDARD 20)
+# C++ standard 17
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 
